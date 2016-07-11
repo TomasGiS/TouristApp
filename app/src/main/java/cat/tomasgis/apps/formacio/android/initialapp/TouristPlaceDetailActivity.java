@@ -1,7 +1,9 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,12 +13,29 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
+import java.util.zip.DataFormatException;
 
+public class TouristPlaceDetailActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
+
+    String dataName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = this.getIntent();
+
+        Bundle bundle = intent.getExtras();
+        if (bundle != null){
+            dataName = bundle.getString("DATA_NAME");
+        }
+        else
+        {
+            Log.e(TouristPlaceDetailActivity.class.getSimpleName(),
+                    "Falta la variable DATA_NAME");
+
+            Toast.makeText(this,"Falta la variable DATA_NAME",Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

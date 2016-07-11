@@ -1,5 +1,6 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TouristPlacesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+    String titleData[] = {"Modernisme","Cubisme"
+            ,"Impresionisme", "Neoclàsic"};
+    String timeData[]= {"","","",""};
+    String priceData[]= {"","","",""};
+    String locationData[]= {"","","",""};
+    String descriptionData[]= {"","","",""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +31,8 @@ public class TouristPlacesListActivity extends AppCompatActivity implements Adap
 
         ListView placesList = (ListView) this.findViewById(R.id.tourist_places_list_listview);
         ArrayAdapter<String> adapter;
-        String strData[] = {"Modernisme","Cubisme"
-                            ,"Impresionisme", "Neoclàsic"};
-        adapter= new ArrayAdapter<String>(this,R.layout.places_list_item,strData);
+
+        adapter= new ArrayAdapter<String>(this,R.layout.places_list_item, titleData);
 
         placesList.setAdapter(adapter);
         placesList.setOnItemClickListener(this);
@@ -39,6 +46,17 @@ public class TouristPlacesListActivity extends AppCompatActivity implements Adap
             //String msg = String.valueOf(position);
             String msg = (String) textView.getText();
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(view.getContext().getApplicationContext(),TouristPlaceDetailActivity.class);
+            /*
+            intent.putExtra("DATA_NAME",(String) textView.getText());
+
+
+            Bundle parameter = new Bundle();
+            parameter.putString("DATA_NAME",(String) textView.getText());
+            intent.putExtras(parameter);
+*/
+            this.startActivity(intent);
         }
     }
 }
