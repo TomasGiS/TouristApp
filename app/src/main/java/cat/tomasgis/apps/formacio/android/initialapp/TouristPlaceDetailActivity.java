@@ -11,9 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.zip.DataFormatException;
+import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 
 public class TouristPlaceDetailActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -21,13 +19,13 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tourist_place_detail);
 
         Intent intent = this.getIntent();
 
         Bundle bundle = intent.getExtras();
         if (bundle != null){
-            dataName = bundle.getString("DATA_NAME");
+            dataName = bundle.getString(TouristPlaceModel.TITLE);
         }
         else
         {

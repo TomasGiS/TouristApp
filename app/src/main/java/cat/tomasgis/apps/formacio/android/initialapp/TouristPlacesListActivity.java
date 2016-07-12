@@ -10,14 +10,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
+import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
+
 public class TouristPlacesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    String titleData[] = {"Modernisme","Cubisme"
-            ,"Impresionisme", "Neoclàsic"};
-    String timeData[]= {"","","",""};
-    String priceData[]= {"","","",""};
-    String locationData[]= {"","","",""};
-    String descriptionData[]= {"","","",""};
+
+    DataProvider dataProvider = DataProvider.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class TouristPlacesListActivity extends AppCompatActivity implements Adap
         ListView placesList = (ListView) this.findViewById(R.id.tourist_places_list_listview);
         ArrayAdapter<String> adapter;
 
-        adapter= new ArrayAdapter<String>(this,R.layout.places_list_item, titleData);
+        adapter= new ArrayAdapter<String>(this,R.layout.places_list_item, dataProvider.getTitles());
 
         placesList.setAdapter(adapter);
         placesList.setOnItemClickListener(this);
@@ -48,6 +50,8 @@ public class TouristPlacesListActivity extends AppCompatActivity implements Adap
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(view.getContext().getApplicationContext(),TouristPlaceDetailActivity.class);
+
+            intent.putExtra(TouristPlaceModel.TITLE,dataProvider.getTouristPlaceModel(position).getTitle());
             /*
             intent.putExtra("DATA_NAME",(String) textView.getText());
 
