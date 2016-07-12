@@ -13,18 +13,23 @@ public class TouristPlaceModel implements Serializable{
     public static final String DESCRIPTION = "DESCRIPTION";
     public static final String APERTURE_TIME = "APERTURE_TIME";
     public static final String PRICE = "PRICE";
+    //public static final String PLACE = "PLACE";
 
 
     private String mTitle;
     private String mDescription;
     private String mApertureTime;
     private String mPrice;
+    //private String mPlace;
 
-    public TouristPlaceModel(String title, String description, String apertureTime, String price) {
+    public TouristPlaceModel(String title, String description, String apertureTime,
+                             //String place,
+                             String price) {
         this.mTitle = title;
         this.mDescription = description;
         this.mApertureTime = apertureTime;
         this.mPrice = price;
+        //this.mPlace = place;
     }
 
     public void setTitle(String title) {
@@ -38,7 +43,12 @@ public class TouristPlaceModel implements Serializable{
     public void setApertureTime(String apertureTime){
         this.mApertureTime = apertureTime;
     }
-
+/*
+    public void setPlace(String place)
+    {
+        this.mPlace = place;
+    }
+*/
     public void setPrice(String price)
     {
         this.mPrice = price;
@@ -59,6 +69,12 @@ public class TouristPlaceModel implements Serializable{
     public String getPrice() {
         return mPrice;
     }
+/*
+    public String getPlace()
+    {
+        return this.mPlace;
+    }
+*/
 
     public Bundle getDataBundle()
     {

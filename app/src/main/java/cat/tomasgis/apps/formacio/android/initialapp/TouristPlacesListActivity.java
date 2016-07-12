@@ -19,7 +19,7 @@ import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 public class TouristPlacesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
 
-    DataProvider dataProvider = DataProvider.getInstance();
+    DataProvider dataProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +28,14 @@ public class TouristPlacesListActivity extends AppCompatActivity implements Adap
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
+        dataProvider = DataProvider.getInstance();
 
         ListView placesList = (ListView) this.findViewById(R.id.tourist_places_list_listview);
         ArrayAdapter<String> adapter;
