@@ -10,6 +10,7 @@ import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
  */
 public class DataProvider {
 
+    public static String SERIALIZABLE_DATA_KEY = "SERIALIZABLE_DATA_KEY";
 
     private static List<TouristPlaceModel> placesData;
 

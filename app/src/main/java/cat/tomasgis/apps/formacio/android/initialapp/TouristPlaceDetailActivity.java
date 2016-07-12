@@ -12,10 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
+import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
 public class TouristPlaceDetailActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
+    private final String TAG = TouristPlaceDetailActivity.class.getSimpleName();
     String dataName;
+    TouristPlaceModel touristPlaceModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,8 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         Bundle bundle = intent.getExtras();
         if (bundle != null){
             dataName = bundle.getString(TouristPlaceModel.TITLE);
+            touristPlaceModel = (TouristPlaceModel) bundle.getSerializable(DataProvider.SERIALIZABLE_DATA_KEY);
+            Log.d(TAG,"Get data bundle");
         }
         else
         {

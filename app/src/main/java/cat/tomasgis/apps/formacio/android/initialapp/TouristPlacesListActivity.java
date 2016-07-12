@@ -52,6 +52,12 @@ public class TouristPlacesListActivity extends AppCompatActivity implements Adap
             Intent intent = new Intent(view.getContext().getApplicationContext(),TouristPlaceDetailActivity.class);
 
             intent.putExtra(TouristPlaceModel.TITLE,dataProvider.getTouristPlaceModel(position).getTitle());
+
+            Bundle bundle = new Bundle();
+
+            bundle.putSerializable(DataProvider.SERIALIZABLE_DATA_KEY,DataProvider.getInstance().getTouristPlaceModel(position));
+
+            intent.putExtras(bundle);
             /*
             intent.putExtra("DATA_NAME",(String) textView.getText());
 
