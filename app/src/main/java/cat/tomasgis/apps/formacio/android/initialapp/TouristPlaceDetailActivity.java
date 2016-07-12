@@ -17,7 +17,7 @@ import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 public class TouristPlaceDetailActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
     private final String TAG = TouristPlaceDetailActivity.class.getSimpleName();
-    String dataName;
+    //String dataName;
     TouristPlaceModel touristPlaceModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +30,10 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         if (savedInstanceState != null)
         {
             this.touristPlaceModel = (TouristPlaceModel)savedInstanceState.getSerializable(DataProvider.SERIALIZABLE_DATA_KEY);
-            dataName = this.touristPlaceModel.getTitle();
+            //dataName = this.touristPlaceModel.getTitle();
         }
         else if (bundle != null){
-            dataName = bundle.getString(TouristPlaceModel.TITLE);
+            //dataName = bundle.getString(TouristPlaceModel.TITLE);
             touristPlaceModel = (TouristPlaceModel) bundle.getSerializable(DataProvider.SERIALIZABLE_DATA_KEY);
             Log.d(TAG,"Get data bundle");
         }
@@ -63,11 +63,10 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         TextView descriptionText = (TextView) this.findViewById(R.id.tourist_detail_description);
 
         if (titleText != null) titleText.setText(this.touristPlaceModel.getTitle());
-        //if (placeText != null) placeText.setText(this.touristPlaceModel.getPlace());
+        if (placeText != null) placeText.setText(this.touristPlaceModel.getPlace());
         if (priceText != null) priceText.setText(this.touristPlaceModel.getPrice());
         if (timeText != null) timeText.setText(this.touristPlaceModel.getApertureTime());
         if (descriptionText != null)  descriptionText.setText(this.touristPlaceModel.getDescription());
-
 
         ImageView placeIcon = (ImageView) this.findViewById(R.id.main_place_icon);
         LinearLayout  placeLayout = (LinearLayout)this.findViewById(R.id.main_place_layout);

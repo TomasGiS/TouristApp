@@ -32,10 +32,10 @@ public class DataProvider {
 
         placesData = new ArrayList<>();
 
-        TouristPlaceModel tpm1 = new TouristPlaceModel("Modernisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","5 €");
-        TouristPlaceModel tpm2 = new TouristPlaceModel("Cubisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","5 €");
-        TouristPlaceModel tpm3 = new TouristPlaceModel("Impresionisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","5 €");
-        TouristPlaceModel tpm4 = new TouristPlaceModel("Neoclàsic","Some Description", "Dilluns a Divendres\n8:00 a 18:00","5 €");
+        TouristPlaceModel tpm1 = new TouristPlaceModel("Modernisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","Somewhere","5 €");
+        TouristPlaceModel tpm2 = new TouristPlaceModel("Cubisme","Some Description", "Dilluns a Divendres\n10:00 a 18:00","Somewhere","9 €");
+        TouristPlaceModel tpm3 = new TouristPlaceModel("Impresionisme","Some Description", "Dilluns a Divendres\n14:00 a 18:00","Somewhere","15 €");
+        TouristPlaceModel tpm4 = new TouristPlaceModel("Neoclàsic","Some Description", "Dilluns a Divendres\n17:00 a 18:00","Somewhere","50 €");
 
 
         placesData.add(tpm1);
