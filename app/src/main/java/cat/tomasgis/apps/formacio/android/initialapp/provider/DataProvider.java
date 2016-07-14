@@ -1,6 +1,10 @@
 package cat.tomasgis.apps.formacio.android.initialapp.provider;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
@@ -8,11 +12,11 @@ import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 /**
  * Created by TomasGiS on 12/7/16.
  */
-public class DataProvider {
+public class DataProvider implements Iterable<TouristPlaceModel>{
 
     public static String SERIALIZABLE_DATA_KEY = "SERIALIZABLE_DATA_KEY";
 
-    private static List<TouristPlaceModel> placesData;
+    private static LinkedHashMap<String,TouristPlaceModel> placesData;
 
     private static DataProvider instance = null;
 
@@ -28,39 +32,61 @@ public class DataProvider {
         return instance;
     }
 
-    private  List<TouristPlaceModel> loadData() {
+    private LinkedHashMap<String,TouristPlaceModel> loadData() {
 
-        placesData = new ArrayList<>();
+        placesData = new LinkedHashMap<>();
 
-        TouristPlaceModel tpm1 = new TouristPlaceModel("Modernisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","Somewhere","5 €");
-        TouristPlaceModel tpm2 = new TouristPlaceModel("Cubisme","Some Description", "Dilluns a Divendres\n10:00 a 18:00","Somewhere","9 €");
-        TouristPlaceModel tpm3 = new TouristPlaceModel("Impresionisme","Some Description", "Dilluns a Divendres\n14:00 a 18:00","Somewhere","15 €");
-        TouristPlaceModel tpm4 = new TouristPlaceModel("Neoclàsic","Some Description", "Dilluns a Divendres\n17:00 a 18:00","Somewhere","50 €");
+        TouristPlaceModel tpm1 = new TouristPlaceModel("Modernisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","Somewhere","5 €",new LatLng(41.113060, 1.242497));
+        TouristPlaceModel tpm2 = new TouristPlaceModel("Cubisme","Some Description", "Dilluns a Divendres\n10:00 a 18:00","Somewhere","9 €",new LatLng(41.114879, 1.241049));
+        TouristPlaceModel tpm3 = new TouristPlaceModel("Impresionisme","Some Description", "Dilluns a Divendres\n14:00 a 18:00","Somewhere","15 €", new LatLng(41.114507, 1.243540));
+        TouristPlaceModel tpm4 = new TouristPlaceModel("Neoclàsic","Some Description", "Dilluns a Divendres\n17:00 a 18:00","Somewhere","50 €", new LatLng(41.112300, 1.240997));
 
 
-        placesData.add(tpm1);
-        placesData.add(tpm2);
-        placesData.add(tpm3);
-        placesData.add(tpm4);
+        placesData.put(tpm1.getTitle(),tpm1);
+        placesData.put(tpm2.getTitle(),tpm2);
+        placesData.put(tpm3.getTitle(),tpm3);
+        placesData.put(tpm4.getTitle(),tpm4);
 
         return placesData;
     }
 
     public  String[] getTitles()
     {
-
         String touristTitle[] = new String[placesData.size()];
 
-        List<String> titles = new ArrayList<>();
-        for (TouristPlaceModel place: placesData)
-            titles.add(place.getTitle());
-
-        return  titles.toArray(touristTitle);
+        return placesData.keySet().toArray(touristTitle);
     }
 
+    public int getNumberOfPlaces()
+    {
+        if (placesData == null) return 0;
+        return placesData.size();
+    }
+
+    /***
+     * Allows access to a {@link TouristPlaceModel} object with the index
+     * @param index the index of the {@link TouristPlaceModel} object
+     * @return if the index is lower than the number of the places stored return the {@link TouristPlaceModel}
+     */
     public TouristPlaceModel getTouristPlaceModel(int index)
     {
         if (index >= placesData.size()) return null;
         else return placesData.get(index);
+    }
+
+
+    /***
+     * Insert data into de presistent data framework
+     * @param touristPlaceModel
+     */
+    public void addTouristPlace(TouristPlaceModel touristPlaceModel)
+    {
+        DataProvider.placesData.put(touristPlaceModel.getTitle(),touristPlaceModel);
+    }
+
+    @Override
+    public Iterator<TouristPlaceModel> iterator() {
+        if (placesData == null) return null;
+        return placesData.values().iterator();
     }
 }
