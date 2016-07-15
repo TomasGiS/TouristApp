@@ -27,8 +27,10 @@
 
         <activity
             android:name=".TouristPlaceDetailActivity"
+            android:theme="@style/AppTheme"
             android:parentActivityName=".TouristPlacesListActivity" />
-        <activity android:name=".TouristPlacesListActivity">
+        <activity android:name=".TouristPlacesListActivity"
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".MainActivity"

@@ -1,6 +1,8 @@
 package cat.tomasgis.apps.formacio.android.initialapp.model;
 
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -9,7 +11,7 @@ import java.io.Serializable;
 /**
  * Created by TomasGiS on 12/7/16.
  */
-public class TouristPlaceModel implements Serializable{
+public class TouristPlaceModel implements Parcelable{
 
     public static final String TITLE = "TITLE";
     public static final String DESCRIPTION = "DESCRIPTION";
@@ -36,6 +38,42 @@ public class TouristPlaceModel implements Serializable{
         this.mPlace = place;
         this.mLocation = location;
     }
+
+    protected TouristPlaceModel(Parcel in) {
+        mTitle = in.readString();
+        mDescription = in.readString();
+        mApertureTime = in.readString();
+        mPrice = in.readString();
+        mPlace = in.readString();
+        mLocation = in.readParcelable(LatLng.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTitle);
+        dest.writeString(mDescription);
+        dest.writeString(mApertureTime);
+        dest.writeString(mPrice);
+        dest.writeString(mPlace);
+        dest.writeParcelable(mLocation, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<TouristPlaceModel> CREATOR = new Creator<TouristPlaceModel>() {
+        @Override
+        public TouristPlaceModel createFromParcel(Parcel in) {
+            return new TouristPlaceModel(in);
+        }
+
+        @Override
+        public TouristPlaceModel[] newArray(int size) {
+            return new TouristPlaceModel[size];
+        }
+    };
 
     public void setTitle(String title) {
         this.mTitle = title;

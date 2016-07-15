@@ -1,5 +1,6 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,8 +14,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Iterator;
+
+import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
+import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +54,20 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Map Listener
+
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -80,8 +108,10 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_tourist_places) {
             // Handle the camera action
+            Intent intent = new Intent(this,TouristPlacesListActivity.class);
+            this.startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -98,4 +128,34 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(41.119470, 1.245471), 16));
+
+        Iterator<TouristPlaceModel> iterator= DataProvider.getInstance().iterator();
+
+        for (Iterator<TouristPlaceModel> iter = iterator; iter.hasNext(); ) {
+
+            TouristPlaceModel place = iter.next();
+
+            map.addMarker(new MarkerOptions()
+                    .anchor(0.0f, 1.0f)
+                    .position(place.getLocation())
+                    .title(place.getTitle()));
+        }
+
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(new LatLng(41.113650, 1.240783))
+                .zoom(15)
+                .bearing(0)
+                .build();
+
+        // Animate the change in camera view over 2 seconds
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
+                2000, null);
+    }
+
 }

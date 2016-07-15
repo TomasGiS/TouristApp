@@ -68,10 +68,20 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
      * @param index the index of the {@link TouristPlaceModel} object
      * @return if the index is lower than the number of the places stored return the {@link TouristPlaceModel}
      */
+    /*
     public TouristPlaceModel getTouristPlaceModel(int index)
     {
-        if (index >= placesData.size()) return null;
-        else return placesData.get(index);
+        TouristPlaceModel tpm = null;
+
+        if (index >= placesData.values().size()) tpm= null;
+        else tpm =  placesData.get(index);
+        return  tpm;
+    }
+*/
+    public TouristPlaceModel getTouristPlaceModel(String key)
+    {
+        TouristPlaceModel tpm =  placesData.get(key);
+        return  tpm;
     }
 
 

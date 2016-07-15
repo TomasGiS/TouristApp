@@ -29,12 +29,12 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         Bundle bundle = intent.getExtras();
         if (savedInstanceState != null)
         {
-            this.touristPlaceModel = (TouristPlaceModel)savedInstanceState.getSerializable(DataProvider.SERIALIZABLE_DATA_KEY);
+            this.touristPlaceModel = (TouristPlaceModel)savedInstanceState.getParcelable(DataProvider.SERIALIZABLE_DATA_KEY);
             //dataName = this.touristPlaceModel.getTitle();
         }
         else if (bundle != null){
             //dataName = bundle.getString(TouristPlaceModel.TITLE);
-            touristPlaceModel = (TouristPlaceModel) bundle.getSerializable(DataProvider.SERIALIZABLE_DATA_KEY);
+            touristPlaceModel = (TouristPlaceModel) bundle.getParcelable(DataProvider.SERIALIZABLE_DATA_KEY);
             Log.d(TAG,"Get data bundle");
         }
         else
@@ -113,14 +113,14 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        this.touristPlaceModel = (TouristPlaceModel) savedInstanceState.getSerializable(DataProvider.SERIALIZABLE_DATA_KEY);
+        this.touristPlaceModel = savedInstanceState.getParcelable(DataProvider.SERIALIZABLE_DATA_KEY);
 
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(DataProvider.SERIALIZABLE_DATA_KEY,this.touristPlaceModel);
+        outState.putParcelable(DataProvider.SERIALIZABLE_DATA_KEY,this.touristPlaceModel);
     }
 
     private void showMessage(String msg)

@@ -40,7 +40,7 @@ public class TouristPlacesListActivity extends AppCompatActivity implements Adap
         ListView placesList = (ListView) this.findViewById(R.id.tourist_places_list_listview);
         ArrayAdapter<String> adapter;
 
-        adapter= new ArrayAdapter<String>(this,R.layout.places_list_item, dataProvider.getTitles());
+        adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dataProvider.getTitles());
 
         placesList.setAdapter(adapter);
         placesList.setOnItemClickListener(this);
@@ -62,7 +62,9 @@ public class TouristPlacesListActivity extends AppCompatActivity implements Adap
 
             Bundle bundle = new Bundle();
 
-            bundle.putSerializable(DataProvider.SERIALIZABLE_DATA_KEY,DataProvider.getInstance().getTouristPlaceModel(position));
+            TouristPlaceModel tpm= DataProvider.getInstance().getTouristPlaceModel((String)textView.getText());
+
+            bundle.putParcelable(DataProvider.SERIALIZABLE_DATA_KEY,tpm);
 
             intent.putExtras(bundle);
 

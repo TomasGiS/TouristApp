@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias ''
+            keyPassword ''
+            storeFile file('')
+            storePassword ''
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "cat.tomasgis.apps.formacio.android.initialapp"
         minSdkVersion 23
@@ -18,6 +25,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -25,11 +36,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
-    compile 'com.google.android.gms:play-services:9.2.1'
-
+    compile 'com.google.android.gms:play-services:9.0.0'
     compile 'com.android.support:multidex:1.0.0'
-
 }
