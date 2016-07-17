@@ -8,9 +8,9 @@ package cat.tomasgis.apps.formacio.android.initialapp;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import cat.tomasgis.apps.formacio.android.initialapp.model.TourtistPlaceModel;
+import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModelTest;
 
 // Runs all unit tests.
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TourtistPlaceModel.class})
+@Suite.SuiteClasses({TouristPlaceModelTest.class})
 public class UnitTestSuite {}

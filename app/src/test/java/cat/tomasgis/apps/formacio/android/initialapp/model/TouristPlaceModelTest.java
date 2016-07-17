@@ -1,21 +1,17 @@
 package cat.tomasgis.apps.formacio.android.initialapp.model;
 
-import android.os.Bundle;
-
 import com.google.android.gms.maps.model.LatLng;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by TomasGiS on 17/7/16.
  */
-public class TourtistPlaceModel {
+public class TouristPlaceModelTest {
 
     TouristPlaceModel touristPlaceModel;
 
