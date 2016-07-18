@@ -50,6 +50,13 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
         return placesData;
     }
 
+    public boolean clearData()
+    {
+        if (placesData == null) return false;
+        placesData.clear();
+        return true;
+    }
+
     public  String[] getTitles()
     {
         String touristTitle[] = new String[placesData.size()];
@@ -63,7 +70,7 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
         return placesData.size();
     }
 
-    /***
+    /*
      * Allows access to a {@link TouristPlaceModel} object with the index
      * @param index the index of the {@link TouristPlaceModel} object
      * @return if the index is lower than the number of the places stored return the {@link TouristPlaceModel}
@@ -89,9 +96,12 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
      * Insert data into de presistent data framework
      * @param touristPlaceModel
      */
-    public void addTouristPlace(TouristPlaceModel touristPlaceModel)
+    public boolean addTouristPlace(TouristPlaceModel touristPlaceModel)
     {
+        if (placesData == null) return false;
         DataProvider.placesData.put(touristPlaceModel.getTitle(),touristPlaceModel);
+
+        return true;
     }
 
     @Override
