@@ -2,36 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cat.tomasgis.apps.formacio.android.initialapp">
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
 
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:name="android.support.multidex.MultiDexApplication">
+        android:supportsRtl="true">
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/maps_api_key"/>
+            android:value="@string/maps_api_key" />
 
         <activity
             android:name=".TouristPlaceDetailActivity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".TouristPlacesListActivity" />
-        <activity android:name=".TouristPlacesListActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:parentActivityName=".TouristPlacesListActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".TouristPlacesListActivity"
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -42,6 +39,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TouristicPlaceInsertActivity"
+            android:label="@string/title_activity_touristic_place_insert"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
