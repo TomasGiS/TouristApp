@@ -1,6 +1,7 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
@@ -81,7 +84,7 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         if (placeLayout != null)
             placeLayout.setOnClickListener(this);
 
-
+        Picasso.with(this).load(touristPlaceModel.getImageURL()).placeholder(R.color.colorPrimary).into((ImageView)findViewById( R.id.main_header));
         /*
 
         placeText.setOnClickListener(new View.OnClickListener() {
