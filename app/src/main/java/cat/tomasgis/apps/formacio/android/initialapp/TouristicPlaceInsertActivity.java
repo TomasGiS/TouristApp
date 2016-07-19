@@ -78,7 +78,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
                     DataProvider.getInstance().addTouristPlace(touristPlaceModel);
                 }
                 Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                        .show();
                 finish();
 
             }
@@ -92,6 +92,12 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         super.onResume();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setVisibility(View.INVISIBLE);
+
+        //Check all fields filled
+        showAddButton(checkAllFields());
+
+        //Show
+
     }
 
     @Override
