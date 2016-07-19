@@ -1,27 +1,18 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
-import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.RatingBar;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -30,13 +21,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
-import java.util.Map;
 
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
+import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
+//TODO:check rotation. Save data?
 public class TouristicPlaceInsertActivity extends AppCompatActivity implements View.OnFocusChangeListener {
 
     private EditText imageURLView;
@@ -45,9 +35,12 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
     private EditText apertureTimeView;
     private EditText priceView;
     private EditText addressView;
+    private RatingBar ratingView;
+    private EditText descriptionView;
     private MapFragment mapFragment;
 
-    RequestQueue queue;
+    private LatLng location;
+
     TouristPlaceModel touristPlaceModel;
 
     @Override
@@ -68,13 +61,29 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                String msg = getString(R.string.place_not_added);
+
+                if (location!= null) {
+                    touristPlaceModel = new TouristPlaceModel(
+                            nameView.getText().toString(),
+                            descriptionView.getText().toString(),
+                            apertureTimeView.getText().toString(),
+                            addressView.getText().toString(),
+                            priceView.getText().toString(),
+                            location,
+                            imageURLView.getText().toString(),
+                            ratingView.getRating()
+                    );
+                    msg = getString(R.string.place_added);
+                    DataProvider.getInstance().addTouristPlace(touristPlaceModel);
+                }
+                Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                finish();
+
             }
         });
 
-        // Instantiate the RequestQueue.
-        queue = Volley.newRequestQueue(this);
 
     }
 
@@ -95,6 +104,8 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         apertureTimeView = (EditText) this.findViewById(R.id.tourist_insert_aperture);
         priceView = (EditText) this.findViewById(R.id.tourist_insert_price);
         addressView = (EditText) this.findViewById(R.id.tourist_insert_place);
+        ratingView = (RatingBar)this.findViewById(R.id.tourist_insert_rate);
+        descriptionView = (EditText)this.findViewById(R.id.tourist_insert_description);
 
         mapFragment = (MapFragment)this.getFragmentManager().findFragmentById(R.id.map);
         //TODO: show map if the address is valid
@@ -104,6 +115,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         nameView.setOnFocusChangeListener(this);
         apertureTimeView.setOnFocusChangeListener(this);
         priceView.setOnFocusChangeListener(this);
+        descriptionView.setOnFocusChangeListener(this);
 
         //Show image
 
@@ -113,9 +125,10 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
                 if (!hasFocus) {
 
                     String urlStr = ((EditText) v).getText().toString();
-                    if (!urlStr.isEmpty())
+                    if (!urlStr.isEmpty()) {
                         Picasso.with(v.getContext().getApplicationContext()).load(urlStr).into(imageView);
-
+                        showAddButton(checkAllFields());
+                    }
                 }
             }
         });
@@ -129,12 +142,16 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
                     String addressStr = ((EditText) v).getText().toString();
                     if (!addressStr.isEmpty()) {
 
-                        LatLng location = getGeocodingAddress(addressStr);
+                        location = getGeocodingAddress(addressStr);
                         showMapData(location);
+                        showAddButton(checkAllFields());
                     }
                 }
             }
             });
+
+        //Rating bar
+
     }
 
     private void showMapData(LatLng location) {
@@ -148,10 +165,19 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
                     .position(location));
             mapFragment.getView().setVisibility(View.VISIBLE);
             //Check all fields data
-            checkAllFields();
+            showAddButton(checkAllFields());
         } else {
             mapFragment.getView().setVisibility(View.GONE);
         }
+    }
+
+    private void showAddButton(boolean show) {
+        int visible = View.INVISIBLE;
+        if (show)
+            visible = View.VISIBLE;
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(visible);
     }
 
 
@@ -163,7 +189,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
             List<Address> addressList = geocoder.getFromLocationName(addressStr,1);
             if (addressList.size() == 0) addressView.setTextColor(getResources().getColor(android.R.color.holo_red_light));
             else {
-                addressView.setTextColor(getResources().getColor(android.R.color.holo_green_light));
+                addressView.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 location = new LatLng(addressList.get(0).getLatitude(),addressList.get(0).getLongitude());
             }
         } catch (IOException e) {
@@ -184,6 +210,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         if (priceView.getText().toString().isEmpty())return false;
         if (nameView.getText().toString().isEmpty()) return false;
         if (addressView.getText().toString().isEmpty()) return false;
+        if (descriptionView.getText().toString().isEmpty()) return false;
         return true;
     }
 
@@ -191,11 +218,6 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        int visible = View.INVISIBLE;
-        if (checkAllFields())
-            visible = View.VISIBLE;
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setVisibility(visible);
+        showAddButton(checkAllFields());
     }
 }

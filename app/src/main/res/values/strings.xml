@@ -14,4 +14,7 @@
     <string name="place_price">Preu</string>
     <string name="place_address">Adreça</string>
     <string name="place_description">Descripció</string>
+
+    <string name="place_not_added">No s\'ha pogut guardar el lloc</string>
+    <string name="place_added">S\'ha pogut guardar el lloc</string>
 </resources>
