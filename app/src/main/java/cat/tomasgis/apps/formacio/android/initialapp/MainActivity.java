@@ -28,7 +28,7 @@ import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap map) {
-
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(41.119470, 1.245471), 16));
 
@@ -153,15 +152,18 @@ public class MainActivity extends AppCompatActivity
                     .title(place.getTitle()));
         }
 
+
+
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(new LatLng(41.113650, 1.240783))
                 .zoom(15)
                 .bearing(0)
                 .build();
 
-        // Animate the change in camera view over 2 seconds
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
-                2000, null);
+
+        map.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        
+
     }
 
 }
