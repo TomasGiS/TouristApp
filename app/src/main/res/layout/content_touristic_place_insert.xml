@@ -12,4 +12,104 @@
     tools:context="cat.tomasgis.apps.formacio.android.initialapp.TouristicPlaceInsertActivity"
     tools:showIn="@layout/activity_touristic_place_insert">
 
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView3" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tourist_insert_image"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tourist_insert_image_name"
+                android:layout_below="@+id/tourist_insert_image"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:hint="@string/place_image_url"
+                android:selectAllOnFocus="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tourist_insert_name"
+                android:layout_below="@+id/tourist_insert_image_name"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:hint="@string/place_name" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tourist_insert_aperture"
+                android:layout_below="@+id/tourist_insert_name"
+                android:layout_alignEnd="@+id/tourist_insert_name"
+                android:layout_alignParentStart="true"
+                android:hint="@string/place_aperture_time" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tourist_insert_price"
+                android:layout_below="@+id/tourist_insert_aperture"
+                android:layout_alignParentStart="true"
+                android:inputType="numberDecimal"
+                android:layout_alignEnd="@+id/tourist_insert_aperture"
+                android:hint="@string/place_price" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
+                android:ems="10"
+                android:id="@+id/tourist_insert_place"
+                android:layout_below="@+id/tourist_insert_price"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/tourist_insert_price"
+                android:hint="@string/place_address" />
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/tourist_insert_place"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/tourist_insert_place"/>
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tourist_insert_rate"
+                android:numStars="5"
+                android:rating="0.0"
+                android:stepSize="0.5"
+                android:layout_below="@+id/map"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/tourist_insert_description"
+                android:layout_below="@+id/tourist_insert_rate"
+                android:hint="@string/place_description"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+    </ScrollView>
+
+
 </RelativeLayout>

@@ -8,4 +8,10 @@
 
     <string name="action_settings">Configuració</string>
     <string name="title_activity_touristic_place_insert">Afegir</string>
+    <string name="place_name">Nom lloc</string>
+    <string name="place_image_url">URL Imatge</string>
+    <string name="place_aperture_time">Hora d\'obertura</string>
+    <string name="place_price">Preu</string>
+    <string name="place_address">Adreça</string>
+    <string name="place_description">Descripció</string>
 </resources>
