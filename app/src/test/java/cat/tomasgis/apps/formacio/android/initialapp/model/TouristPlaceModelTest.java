@@ -22,6 +22,8 @@ public class TouristPlaceModelTest {
     private String PRICE = "5 €";
     private LatLng LOCATION = new LatLng(41.113060, 1.242497);
     private String PLACE = "Some location place";
+    private String IMAGE_URL = "http://some.domain.in";
+    private float RATING = 1.5f;
 
     //Getter And Setter values
     private String TITLE_SG = "Cubisme";
@@ -30,13 +32,15 @@ public class TouristPlaceModelTest {
     private String PRICE_SG = "15 €";
     private LatLng LOCATION_SG = new LatLng(45, 1.3);
     private String PLACE_SG = "The second place";
+    private String IMAGE_URL_SG = "http://some.other.domain.in";
+    private float RATING_SG = 3.5f;
 
     @Before
     public void prepareData()
     {
 
 
-        touristPlaceModel = new TouristPlaceModel(TITLE,DESCRIPTION, APERTURE_TIME,PLACE,PRICE,LOCATION);
+        touristPlaceModel = new TouristPlaceModel(TITLE,DESCRIPTION, APERTURE_TIME,PLACE,PRICE,LOCATION,IMAGE_URL,RATING);
     }
 
     @Test
@@ -114,6 +118,28 @@ public class TouristPlaceModelTest {
         touristPlaceModel.setPlace(PLACE_SG);
         assertTrue(touristPlaceModel.getPlace().equals(PLACE_SG));
         assertFalse(touristPlaceModel.getPlace().equals(PLACE));
+    }
+
+    public void imageValidate()
+    {
+        //Constructor and Getter
+        assertTrue(touristPlaceModel.getImageURL().equals(IMAGE_URL));
+
+        //Setter And Getter Check
+        touristPlaceModel.setImageURL(IMAGE_URL_SG);
+        assertTrue(touristPlaceModel.getImageURL().equals(IMAGE_URL_SG));
+        assertFalse(touristPlaceModel.getImageURL().equals(IMAGE_URL));
+    }
+
+    public void rateValidate()
+    {
+        //Constructor and Getter
+        assertTrue(touristPlaceModel.getRating() == RATING);
+
+        //Setter And Getter Check
+        touristPlaceModel.setRating(RATING);
+        assertTrue(touristPlaceModel.getRating() == RATING_SG);
+        assertFalse(touristPlaceModel.getRating() == RATING);
     }
 
     /*

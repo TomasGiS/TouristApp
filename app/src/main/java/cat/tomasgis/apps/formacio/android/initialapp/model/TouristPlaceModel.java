@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * Created by TomasGiS on 12/7/16.
  */
-public class TouristPlaceModel implements Parcelable{
+public class TouristPlaceModel implements Parcelable {
 
     public static final String TITLE = "TITLE";
     public static final String DESCRIPTION = "DESCRIPTION";
@@ -19,6 +19,8 @@ public class TouristPlaceModel implements Parcelable{
     public static final String PRICE = "PRICE";
     public static final String PLACE = "PLACE";
     public static final String LOCATION = "LOCATION";
+    public static final String IMAGE_URL = "IMAGE_URL";
+    public static final String RATING ="RATING";
 
 
     private String mTitle;
@@ -27,17 +29,22 @@ public class TouristPlaceModel implements Parcelable{
     private String mPrice;
     private String mPlace;
     private LatLng mLocation;
+    private String mImageURL;
+    private float mRating;
 
     public TouristPlaceModel(String title, String description, String apertureTime,
                              String place,
-                             String price, LatLng location) {
+                             String price, LatLng location, String imageURL, float rating) {
         this.mTitle = title;
         this.mDescription = description;
         this.mApertureTime = apertureTime;
         this.mPrice = price;
         this.mPlace = place;
         this.mLocation = location;
+        this.mRating = rating;
+        this.mImageURL = imageURL;
     }
+
 
     protected TouristPlaceModel(Parcel in) {
         mTitle = in.readString();
@@ -46,6 +53,8 @@ public class TouristPlaceModel implements Parcelable{
         mPrice = in.readString();
         mPlace = in.readString();
         mLocation = in.readParcelable(LatLng.class.getClassLoader());
+        mImageURL = in.readString();
+        mRating = in.readFloat();
     }
 
     @Override
@@ -56,6 +65,8 @@ public class TouristPlaceModel implements Parcelable{
         dest.writeString(mPrice);
         dest.writeString(mPlace);
         dest.writeParcelable(mLocation, flags);
+        dest.writeString(mImageURL);
+        dest.writeFloat(mRating);
     }
 
     @Override
@@ -102,6 +113,13 @@ public class TouristPlaceModel implements Parcelable{
         this.mLocation = location;
     }
 
+    public void setImageURL(String imageURL) {
+        this.mImageURL = imageURL;
+    }
+
+    public void setRating(float rating) {
+        this.mRating = rating;
+    }
 
     public String getTitle() {
         return mTitle;
@@ -129,6 +147,9 @@ public class TouristPlaceModel implements Parcelable{
         return this.mLocation;
     }
 
+    public String getImageURL(){return this.mImageURL;}
+
+    public float getRating(){return this.mRating;}
 
     @Deprecated
     public Bundle getDataBundle()
@@ -140,6 +161,8 @@ public class TouristPlaceModel implements Parcelable{
         bundle.putString(TouristPlaceModel.APERTURE_TIME,this.mApertureTime);
         bundle.putString(TouristPlaceModel.PLACE,this.mPlace);
         bundle.putParcelable(TouristPlaceModel.LOCATION,this.mLocation);
+        bundle.putString(TouristPlaceModel.IMAGE_URL,this.mImageURL);
+        bundle.putFloat(TouristPlaceModel.LOCATION,this.mRating);
 
         return bundle;
     }
@@ -152,6 +175,8 @@ public class TouristPlaceModel implements Parcelable{
         this.mApertureTime = bundle.getString(TouristPlaceModel.APERTURE_TIME);
         this.mPlace = bundle.getString(TouristPlaceModel.PLACE);
         this.mLocation = bundle.getParcelable(TouristPlaceModel.LOCATION);
+        this.mImageURL = bundle.getString(TouristPlaceModel.IMAGE_URL);
+        this.mRating = bundle.getFloat(TouristPlaceModel.RATING);
     }
 
 

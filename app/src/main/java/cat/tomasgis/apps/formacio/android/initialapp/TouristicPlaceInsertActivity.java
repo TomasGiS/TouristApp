@@ -97,6 +97,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         addressView = (EditText) this.findViewById(R.id.tourist_insert_place);
 
         mapFragment = (MapFragment)this.getFragmentManager().findFragmentById(R.id.map);
+        //TODO: show map if the address is valid
         mapFragment.getView().setVisibility(View.GONE);
 
 

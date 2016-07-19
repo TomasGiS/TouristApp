@@ -36,10 +36,12 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
 
         placesData = new LinkedHashMap<>();
 
-        TouristPlaceModel tpm1 = new TouristPlaceModel("Modernisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","Somewhere","5 €",new LatLng(41.113060, 1.242497));
-        TouristPlaceModel tpm2 = new TouristPlaceModel("Cubisme","Some Description", "Dilluns a Divendres\n10:00 a 18:00","Somewhere","9 €",new LatLng(41.114879, 1.241049));
-        TouristPlaceModel tpm3 = new TouristPlaceModel("Impresionisme","Some Description", "Dilluns a Divendres\n14:00 a 18:00","Somewhere","15 €", new LatLng(41.114507, 1.243540));
-        TouristPlaceModel tpm4 = new TouristPlaceModel("Neoclàsic","Some Description", "Dilluns a Divendres\n17:00 a 18:00","Somewhere","50 €", new LatLng(41.112300, 1.240997));
+        String imageURL = "http://www.sidorme.com/uploads/46182-GAUDI.jpg";
+
+        TouristPlaceModel tpm1 = new TouristPlaceModel("Modernisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","Somewhere","5 €",new LatLng(41.113060, 1.242497),imageURL,1.5f);
+        TouristPlaceModel tpm2 = new TouristPlaceModel("Cubisme","Some Description", "Dilluns a Divendres\n10:00 a 18:00","Somewhere","9 €",new LatLng(41.114879, 1.241049),imageURL,2.0f);
+        TouristPlaceModel tpm3 = new TouristPlaceModel("Impresionisme","Some Description", "Dilluns a Divendres\n14:00 a 18:00","Somewhere","15 €", new LatLng(41.114507, 1.243540),imageURL,3.5f);
+        TouristPlaceModel tpm4 = new TouristPlaceModel("Neoclàsic","Some Description", "Dilluns a Divendres\n17:00 a 18:00","Somewhere","50 €", new LatLng(41.112300, 1.240997),imageURL,0.5f);
 
 
         placesData.put(tpm1.getTitle(),tpm1);
