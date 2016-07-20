@@ -95,8 +95,8 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
 
         Locale locale = this.getResources().getConfiguration().locale;
         ((TextView)this.findViewById(R.id.tourist_insert_currency)).setText(this.getString(R.string.currency,
-                Utils.getCurrencyCode(locale),
-                Utils.getCurrencySymbol(locale)));
+                Utils.getCurrencySymbol(locale),
+                Utils.getCurrencyCode(locale)));
         /*
 
         placeText.setOnClickListener(new View.OnClickListener() {

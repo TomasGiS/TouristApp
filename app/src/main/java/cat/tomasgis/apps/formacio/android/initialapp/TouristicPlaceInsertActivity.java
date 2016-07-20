@@ -122,8 +122,8 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
 
         Locale locale = this.getResources().getConfiguration().locale;
         ((TextView)this.findViewById(R.id.tourist_insert_currency)).setText(this.getString(R.string.currency,
-                Utils.getCurrencyCode(locale),
-                Utils.getCurrencySymbol(locale)));
+                Utils.getCurrencySymbol(locale),
+                Utils.getCurrencyCode(locale)));
 
 
         nameView.setOnFocusChangeListener(this);
