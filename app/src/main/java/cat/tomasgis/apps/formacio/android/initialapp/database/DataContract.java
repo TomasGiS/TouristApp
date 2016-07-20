@@ -14,6 +14,7 @@ public class DataContract {
 
     interface TouristPlaceFields
     {
+
         public static final String TITLE = "TITLE";
         public static final String DESCRIPTION = "DESCRIPTION";
         public static final String APERTURE_TIME = "APERTURE_TIME";

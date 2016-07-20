@@ -13,7 +13,7 @@ public class TouristicSQLHelper extends SQLiteOpenHelper{
     public static final int DATABASE_VERSION = 1;
 
     //TABLES
-    private static final String TABLE_PLACES = "PLACES";
+    public static final String TABLE_PLACES = "PLACES";
 
     //TABLES_FIELDS
     private static final String PLACES_TABLE_CREATE = "create table "
