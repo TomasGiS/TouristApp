@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity
 
 
         map.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        
+
 
     }
 
