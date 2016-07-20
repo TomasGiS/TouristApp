@@ -15,6 +15,11 @@
     <string name="place_address">Adreça</string>
     <string name="place_description">Descripció</string>
 
+    <!--Add new touristic place -->
     <string name="place_not_added">No s\'ha pogut guardar el lloc</string>
     <string name="place_added">S\'ha pogut guardar el lloc</string>
+
+
+    <!-- Globla symbols -->
+    <string name="currency" translatable="false">%1$s (%2$s)</string>
 </resources>

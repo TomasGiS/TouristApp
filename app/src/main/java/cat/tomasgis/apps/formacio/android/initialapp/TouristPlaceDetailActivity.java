@@ -2,6 +2,7 @@ package cat.tomasgis.apps.formacio.android.initialapp;
 
 import android.content.Intent;
 import android.media.Image;
+import android.media.Rating;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,11 +10,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
+
+import cat.tomasgis.apps.Utils.Utils;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
@@ -85,6 +90,13 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
             placeLayout.setOnClickListener(this);
 
         Picasso.with(this).load(touristPlaceModel.getImageURL()).placeholder(R.color.colorPrimary).into((ImageView)findViewById( R.id.main_header));
+
+        ((RatingBar)this.findViewById(R.id.tourist_detail_ratingbar)).setRating(touristPlaceModel.getRating());
+
+        Locale locale = this.getResources().getConfiguration().locale;
+        ((TextView)this.findViewById(R.id.tourist_insert_currency)).setText(this.getString(R.string.currency,
+                Utils.getCurrencyCode(locale),
+                Utils.getCurrencySymbol(locale)));
         /*
 
         placeText.setOnClickListener(new View.OnClickListener() {

@@ -18,8 +18,9 @@
             <RelativeLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/relativeLayout">
+                android:layout_height="210dp"
+                android:id="@+id/relativeLayout"
+                android:background="@color/colorPrimary">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -42,6 +43,15 @@
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/abc_primary_text_material_dark" />
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tourist_detail_ratingbar"
+                    android:isIndicator="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:numStars="5" />
 
             </RelativeLayout>
 
@@ -136,6 +146,13 @@
                         android:text="5€"
                         android:id="@+id/tourist_detail_price"
                         android:layout_marginLeft="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Medium Text"
+                        android:id="@+id/tourist_insert_currency" />
                 </LinearLayout>
 
                 <ScrollView

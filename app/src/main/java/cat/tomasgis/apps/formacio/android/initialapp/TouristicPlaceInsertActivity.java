@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,7 +23,9 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
+import cat.tomasgis.apps.Utils.Utils;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
@@ -116,6 +119,11 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         mapFragment = (MapFragment)this.getFragmentManager().findFragmentById(R.id.map);
         //TODO: show map if the address is valid
         mapFragment.getView().setVisibility(View.GONE);
+
+        Locale locale = this.getResources().getConfiguration().locale;
+        ((TextView)this.findViewById(R.id.tourist_insert_currency)).setText(this.getString(R.string.currency,
+                Utils.getCurrencyCode(locale),
+                Utils.getCurrencySymbol(locale)));
 
 
         nameView.setOnFocusChangeListener(this);

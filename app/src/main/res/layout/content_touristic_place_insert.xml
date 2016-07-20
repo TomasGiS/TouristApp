@@ -65,8 +65,9 @@
                 android:layout_below="@+id/tourist_insert_aperture"
                 android:layout_alignParentStart="true"
                 android:inputType="numberDecimal"
-                android:layout_alignEnd="@+id/tourist_insert_aperture"
-                android:hint="@string/place_price" />
+                android:hint="@string/place_price"
+                android:layout_toStartOf="@+id/tourist_insert_currency"
+                android:layout_alignEnd="@+id/tourist_insert_rate" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -76,8 +77,8 @@
                 android:id="@+id/tourist_insert_place"
                 android:layout_below="@+id/tourist_insert_price"
                 android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/tourist_insert_price"
-                android:hint="@string/place_address" />
+                android:hint="@string/place_address"
+                android:layout_alignParentEnd="true" />
 
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                 android:name="com.google.android.gms.maps.MapFragment"
@@ -108,6 +109,16 @@
                 android:hint="@string/place_description"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="-- (-)"
+                android:id="@+id/tourist_insert_currency"
+                android:layout_alignBaseline="@+id/tourist_insert_price"
+                android:layout_alignBottom="@+id/tourist_insert_price"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
     </ScrollView>
 

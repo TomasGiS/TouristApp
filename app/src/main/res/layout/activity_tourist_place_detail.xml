@@ -8,8 +8,9 @@
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout">
+        android:layout_height="210dp"
+        android:id="@+id/relativeLayout"
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:layout_width="match_parent"
@@ -32,6 +33,14 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="@color/abc_primary_text_material_dark" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tourist_detail_ratingbar"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:numStars="5" />
 
     </RelativeLayout>
 
@@ -102,7 +111,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_below="@+id/linearLayout2"
@@ -123,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="5€"
+                android:text="5"
                 android:id="@+id/tourist_detail_price"
                 android:layout_marginLeft="10dp" />
         </LinearLayout>
@@ -142,6 +151,16 @@
                 android:text="Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas &quot;Letraset&quot;, las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum."
                 android:id="@+id/tourist_detail_description" />
         </ScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="-- (-)"
+            android:id="@+id/tourist_insert_currency"
+            android:layout_alignTop="@+id/linearLayout3"
+            android:layout_toEndOf="@+id/linearLayout3"
+            android:layout_marginLeft="10dp" />
 
     </RelativeLayout>
 
