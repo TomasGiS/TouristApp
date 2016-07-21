@@ -9,14 +9,16 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
+import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 
 /**
  * Created by TomasGiS on 20/7/16.
  */
-public class TouristPlaceDataSource {
+public class TouristPlaceDataSource implements  ITouristDataAccess {
 
     final String[] FIELDS = {DataContract.TouristPlace._ID,
             DataContract.TouristPlace.TITLE,
@@ -31,10 +33,11 @@ public class TouristPlaceDataSource {
     private final String TAG = TouristPlaceDataSource.class.getSimpleName();
 
     // Database fields
-    private SQLiteDatabase database;
+    private SQLiteDatabase database = null;
     private TouristicSQLHelper dbHelper;
 
     private static TouristPlaceDataSource instance;
+
 
     private TouristPlaceDataSource(){};
 
@@ -66,6 +69,11 @@ public class TouristPlaceDataSource {
         database = dbHelper.getWritableDatabase();
     }
 
+    public boolean isOpen()
+    {
+        return (database != null);
+    }
+
     /**
      * Close database access
      */
@@ -74,11 +82,22 @@ public class TouristPlaceDataSource {
     }
 
     public long create(TouristPlaceModel touristPlace) {
+
+        if (!isOpen()) this.open();
+
         ContentValues values = new ContentValues();
         values.put(DataContract.TouristPlace.TITLE, touristPlace.getTitle());
+        values.put(DataContract.TouristPlace.DESCRIPTION, touristPlace.getDescription());
+        values.put(DataContract.TouristPlace.APERTURE_TIME, touristPlace.getApertureTime());
+        values.put(DataContract.TouristPlace.PLACE, touristPlace.getPlace());
+        values.put(DataContract.TouristPlace.PRICE, touristPlace.getPrice());
 
         LatLng location = touristPlace.getLocation();
         values.put(DataContract.TouristPlace.LOCATION_LAT,location.latitude);
+        values.put(DataContract.TouristPlace.LOCATION_LON,location.longitude);
+
+        values.put(DataContract.TouristPlace.IMAGE_URL, touristPlace.getImageURL());
+        values.put(DataContract.TouristPlace.RATING, touristPlace.getRating());
 
         long insertId = database.insert(TouristicSQLHelper.TABLE_PLACES, null, values);
 
@@ -88,10 +107,11 @@ public class TouristPlaceDataSource {
     public TouristPlaceModel query(String title)
     {
 
+        if (!isOpen()) this.open();
 
 
         Cursor cursor = database.query(TouristicSQLHelper.TABLE_PLACES,
-                FIELDS, DataContract.TouristPlace.TITLE + " = " + title, null,
+                FIELDS, DataContract.TouristPlace.TITLE + " = \'" + title+"\'", null,
                 null, null, null);
 
         TouristPlaceModel touristPlaceModel = cursorToPlaceModel(cursor);
@@ -100,10 +120,16 @@ public class TouristPlaceDataSource {
     }
 
     public int delete(TouristPlaceModel touristPlaceModel) {
-        String title = touristPlaceModel.getTitle();
-        System.out.println("TouristPlaceModel deleted with title: " + touristPlaceModel.getTitle());
+        return this.delete(touristPlaceModel.getTitle());
+    }
+
+    public int delete(String title) {
+        if (!isOpen()) this.open();
+
+
+        System.out.println("TouristPlaceModel deleted with title: " + title);
         int id = database.delete(TouristicSQLHelper.TABLE_PLACES, DataContract.TouristPlace.TITLE
-                + " = " + touristPlaceModel.getTitle(), null);
+                + " = \'" + title+"\'", null);
         return id;
     }
 
@@ -129,6 +155,9 @@ public class TouristPlaceDataSource {
     }
 
     public LinkedHashMap<String,TouristPlaceModel> getAllTouristPlaces() {
+
+        if(!isOpen()) this.open();
+
         LinkedHashMap<String,TouristPlaceModel> touristPlacelist = new LinkedHashMap<String,TouristPlaceModel>();
 
         Cursor cursor = database.query(TouristicSQLHelper.TABLE_PLACES,
@@ -146,7 +175,62 @@ public class TouristPlaceDataSource {
     }
 
 
+    @Override
+    public boolean clearData() {
 
+        if(!this.isOpen()) this.open();
+        instance.database.execSQL("DROP TABLE IF EXISTS " + TouristicSQLHelper.TABLE_PLACES);
+        instance.dbHelper.onCreate(instance.database);
+        return false;
+    }
 
+    @Override
+    public String[] getTitles() {
 
+        if(!isOpen()) this.open();
+
+        Cursor cursor = database.query(TouristicSQLHelper.TABLE_PLACES,
+                FIELDS, null, null, null, null, null);
+
+        String titles[] = new String[cursor.getCount()];
+        int index=0;
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            TouristPlaceModel touristPlaceModel = cursorToPlaceModel(cursor);
+            titles[index++] = touristPlaceModel.getTitle();
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+
+        return titles;
+    }
+
+    @Override
+    public int getNumberOfPlaces() {
+        Cursor cursor = database.query(TouristicSQLHelper.TABLE_PLACES,
+                FIELDS, null, null, null, null, null);
+        return cursor.getCount();
+    }
+
+    @Override
+    public TouristPlaceModel getTouristPlaceModel(String key) {
+
+        return this.query(key);
+    }
+
+    @Override
+    public boolean addTouristPlace(TouristPlaceModel touristPlaceModel) {
+
+        long id = this.create(touristPlaceModel);
+
+        return (id>=0);
+    }
+
+    public Cursor getIterableCursor()
+    {
+        Cursor cursor = database.query(TouristicSQLHelper.TABLE_PLACES,
+                FIELDS, null, null, null, null, null);
+        return cursor;
+    }
 }

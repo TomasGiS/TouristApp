@@ -1,25 +1,13 @@
 package cat.tomasgis.apps.formacio.android.initialapp.database;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by TomasGiS on 20/7/16.
+ * Created by TomasGiS on 21/7/16.
  */
 public class TouristPlaceDataSourceTest {
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
 
     @Test
     public void testGetInstance() throws Exception {
@@ -53,6 +41,36 @@ public class TouristPlaceDataSourceTest {
 
     @Test
     public void testGetAllTouristPlaces() throws Exception {
+
+    }
+
+    @Test
+    public void testClearData() throws Exception {
+
+    }
+
+    @Test
+    public void testGetTitles() throws Exception {
+
+    }
+
+    @Test
+    public void testGetNumberOfPlaces() throws Exception {
+
+    }
+
+    @Test
+    public void testGetTouristPlaceModel() throws Exception {
+
+    }
+
+    @Test
+    public void testAddTouristPlace() throws Exception {
+
+    }
+
+    @Test
+    public void testGetIterableCursor() throws Exception {
 
     }
 }

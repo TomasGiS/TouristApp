@@ -2,17 +2,16 @@ package cat.tomasgis.apps.formacio.android.initialapp.provider;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 
+import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 
 /**
  * Created by TomasGiS on 12/7/16.
  */
-public class DataProvider implements Iterable<TouristPlaceModel>{
+public class DataProvider implements Iterable<TouristPlaceModel>, ITouristDataAccess {
 
     public static String SERIALIZABLE_DATA_KEY = "SERIALIZABLE_DATA_KEY";
 
@@ -52,6 +51,7 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
         return placesData;
     }
 
+    @Override
     public boolean clearData()
     {
         if (placesData == null) return false;
@@ -59,6 +59,7 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
         return true;
     }
 
+    @Override
     public  String[] getTitles()
     {
         String touristTitle[] = new String[placesData.size()];
@@ -66,6 +67,7 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
         return placesData.keySet().toArray(touristTitle);
     }
 
+    @Override
     public int getNumberOfPlaces()
     {
         if (placesData == null) return 0;
@@ -87,6 +89,7 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
         return  tpm;
     }
 */
+    @Override
     public TouristPlaceModel getTouristPlaceModel(String key)
     {
         TouristPlaceModel tpm =  placesData.get(key);
@@ -98,6 +101,7 @@ public class DataProvider implements Iterable<TouristPlaceModel>{
      * Insert data into de presistent data framework
      * @param touristPlaceModel
      */
+    @Override
     public boolean addTouristPlace(TouristPlaceModel touristPlaceModel)
     {
         if (placesData == null) return false;
