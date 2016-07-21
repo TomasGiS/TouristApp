@@ -1,6 +1,5 @@
 package cat.tomasgis.apps.formacio.android.initialapp.database;
 
-import android.database.Cursor;
 import android.support.test.InstrumentationRegistry;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -8,8 +7,6 @@ import com.google.android.gms.maps.model.LatLng;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.LinkedHashMap;
 
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 
@@ -22,7 +19,7 @@ public class TouristPlaceDataSourceTest {
 
 
     private final String TAG = TouristPlaceDataSourceTest.class.getSimpleName();
-    TouristPlaceDataSource instance = null;
+    TouristPlaceDBProvider instance = null;
 
     private static final String TPM_NAME_BASE = "Lloc turístic";
     private static final String TPM_DESCRIPTION_BASE = "DESCRIPTION";
@@ -38,13 +35,13 @@ public class TouristPlaceDataSourceTest {
     @Before
     public void prepareEnvironment()
     {
-        instance = TouristPlaceDataSource.getInstance(InstrumentationRegistry.getTargetContext());
+        instance = TouristPlaceDBProvider.getInstance(InstrumentationRegistry.getTargetContext());
         assertNotNull(TAG + "Instance created",instance);
     }
 
     @Test
     public void testGetInstance() throws Exception {
-        instance = TouristPlaceDataSource.getInstance(InstrumentationRegistry.getTargetContext());
+        instance = TouristPlaceDBProvider.getInstance(InstrumentationRegistry.getTargetContext());
         assertNotNull(TAG + "Instance created",instance);
     }
 

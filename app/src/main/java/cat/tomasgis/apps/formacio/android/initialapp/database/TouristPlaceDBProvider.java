@@ -5,11 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
@@ -18,7 +16,7 @@ import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 /**
  * Created by TomasGiS on 20/7/16.
  */
-public class TouristPlaceDataSource implements  ITouristDataAccess {
+public class TouristPlaceDBProvider implements  ITouristDataAccess {
 
     final String[] FIELDS = {DataContract.TouristPlace._ID,
             DataContract.TouristPlace.TITLE,
@@ -30,24 +28,24 @@ public class TouristPlaceDataSource implements  ITouristDataAccess {
             DataContract.TouristPlace.LOCATION_LON,
             DataContract.TouristPlace.IMAGE_URL,
             DataContract.TouristPlace.RATING};
-    private final String TAG = TouristPlaceDataSource.class.getSimpleName();
+    private final String TAG = TouristPlaceDBProvider.class.getSimpleName();
 
     // Database fields
     private SQLiteDatabase database = null;
     private TouristicSQLHelper dbHelper;
 
-    private static TouristPlaceDataSource instance;
+    private static TouristPlaceDBProvider instance;
 
 
-    private TouristPlaceDataSource(){};
+    private TouristPlaceDBProvider(){};
 
 
-    public static TouristPlaceDataSource getInstance(Context context)
+    public static TouristPlaceDBProvider getInstance(Context context)
     {
 
         if (instance == null)
         {
-            instance = new TouristPlaceDataSource(context);
+            instance = new TouristPlaceDBProvider(context);
         }
 
         return instance;
@@ -57,7 +55,7 @@ public class TouristPlaceDataSource implements  ITouristDataAccess {
      * The constructor creates a connection with the DataBase Delegate ({@link TouristicSQLHelper})
      * @param context application or activity context
      */
-    public TouristPlaceDataSource(Context context) {
+    public TouristPlaceDBProvider(Context context) {
         dbHelper = new TouristicSQLHelper(context);
     }
 
