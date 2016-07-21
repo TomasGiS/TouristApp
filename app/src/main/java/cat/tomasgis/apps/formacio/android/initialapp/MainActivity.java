@@ -30,6 +30,8 @@ import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
+    DataProvider instance = DataProvider.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(41.119470, 1.245471), 16));
 
-        Iterator<TouristPlaceModel> iterator= DataProvider.getInstance().iterator();
+        Iterator<TouristPlaceModel> iterator= instance.iterator();
 
         for (Iterator<TouristPlaceModel> iter = iterator; iter.hasNext(); ) {
 

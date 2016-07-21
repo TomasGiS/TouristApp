@@ -46,6 +46,8 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
 
     TouristPlaceModel touristPlaceModel;
 
+    DataProvider instance = DataProvider.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +80,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
                             ratingView.getRating()
                     );
                     msg = getString(R.string.place_added);
-                    DataProvider.getInstance().addTouristPlace(touristPlaceModel);
+                    instance.addTouristPlace(touristPlaceModel);
                 }
                 Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
                         .show();
