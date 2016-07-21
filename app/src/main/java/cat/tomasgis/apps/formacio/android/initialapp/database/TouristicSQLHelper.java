@@ -16,7 +16,7 @@ public class TouristicSQLHelper extends SQLiteOpenHelper{
     public static final String TABLE_PLACES = "PLACES";
 
     //TABLES_FIELDS
-    private static final String PLACES_TABLE_CREATE = "create table "
+    public static final String PLACES_TABLE_CREATE = "create table "
             + TABLE_PLACES + "( "
             + DataContract.TouristPlace._ID + " integer primary key autoincrement, "
             + DataContract.TouristPlace.TITLE + " text not null,"

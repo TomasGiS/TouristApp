@@ -119,7 +119,7 @@ public class TouristPlaceModelTest {
         assertTrue(touristPlaceModel.getPlace().equals(PLACE_SG));
         assertFalse(touristPlaceModel.getPlace().equals(PLACE));
     }
-
+    @Test
     public void imageValidate()
     {
         //Constructor and Getter
@@ -130,14 +130,14 @@ public class TouristPlaceModelTest {
         assertTrue(touristPlaceModel.getImageURL().equals(IMAGE_URL_SG));
         assertFalse(touristPlaceModel.getImageURL().equals(IMAGE_URL));
     }
-
+    @Test
     public void rateValidate()
     {
         //Constructor and Getter
         assertTrue(touristPlaceModel.getRating() == RATING);
 
         //Setter And Getter Check
-        touristPlaceModel.setRating(RATING);
+        touristPlaceModel.setRating(RATING_SG);
         assertTrue(touristPlaceModel.getRating() == RATING_SG);
         assertFalse(touristPlaceModel.getRating() == RATING);
     }

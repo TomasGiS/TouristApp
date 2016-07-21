@@ -12,10 +12,13 @@ public interface ITouristDataAccess  {
 
     String[] getTitles();
 
+    @Deprecated
     int getNumberOfPlaces();
 
     TouristPlaceModel getTouristPlaceModel(String key);
 
     boolean addTouristPlace(TouristPlaceModel touristPlaceModel);
+
+    //public Iterator<ITouristDataAccess> Iterator();
 
 }

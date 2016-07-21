@@ -3,7 +3,6 @@ package cat.tomasgis.apps.formacio.android.initialapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,12 +23,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Iterator;
 
+import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
+    //ITouristDataAccess instance = DataProviderFactory.getDataSource(MainActivity.this.getApplicationContext(), DataProviderFactory.TouristicDataSourceType.DabaseData);
     DataProvider instance = DataProvider.getInstance();
 
     @Override

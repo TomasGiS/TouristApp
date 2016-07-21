@@ -112,6 +112,8 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
                 FIELDS, DataContract.TouristPlace.TITLE + " = \'" + title+"\'", null,
                 null, null, null);
 
+        cursor.moveToFirst();
+
         TouristPlaceModel touristPlaceModel = cursorToPlaceModel(cursor);
 
         return touristPlaceModel;
@@ -133,7 +135,6 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
 
     private TouristPlaceModel cursorToPlaceModel(Cursor cursor) {
 
-        cursor.moveToFirst();
 
         LatLng location = new LatLng(cursor.getDouble(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.LOCATION_LAT)),
                 cursor.getDouble(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.LOCATION_LON)));
@@ -178,7 +179,7 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
 
         if(!this.isOpen()) this.open();
         instance.database.execSQL("DROP TABLE IF EXISTS " + TouristicSQLHelper.TABLE_PLACES);
-        instance.dbHelper.onCreate(instance.database);
+        instance.database.execSQL(TouristicSQLHelper.PLACES_TABLE_CREATE);
         return false;
     }
 

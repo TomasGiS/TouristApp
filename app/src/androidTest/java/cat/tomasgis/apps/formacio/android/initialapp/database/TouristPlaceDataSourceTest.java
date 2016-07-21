@@ -146,7 +146,7 @@ public class TouristPlaceDataSourceTest {
 
     @Test
     public void testGetIterableCursor() throws Exception {
-
+        assertTrue("Not implemented",false);
     }
 
     @Test
