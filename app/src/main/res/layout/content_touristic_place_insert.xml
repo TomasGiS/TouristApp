@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="cat.tomasgis.apps.formacio.android.initialapp.TouristicPlaceInsertActivity"
-    tools:showIn="@layout/activity_touristic_place_insert">
+    >
 
 
     <ScrollView
@@ -22,19 +22,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tourist_insert_image"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true" />
+                android:id="@+id/tourist_insert_header">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tourist_insert_image"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/tourist_insert_favorite"
+                    android:src="@drawable/ic_star_border"
+                    android:tint="@color/colorAccent" />
+            </RelativeLayout>
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tourist_insert_image_name"
-                android:layout_below="@+id/tourist_insert_image"
+                android:layout_below="@+id/tourist_insert_header"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:hint="@string/place_image_url"

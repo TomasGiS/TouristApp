@@ -28,7 +28,8 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
             DataContract.TouristPlace.LOCATION_LAT,
             DataContract.TouristPlace.LOCATION_LON,
             DataContract.TouristPlace.IMAGE_URL,
-            DataContract.TouristPlace.RATING};
+            DataContract.TouristPlace.RATING,
+            DataContract.TouristPlace.FAVORITE};
     private final String TAG = TouristPlaceDBProvider.class.getSimpleName();
 
     // Database fields
@@ -98,6 +99,7 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
 
         values.put(DataContract.TouristPlace.IMAGE_URL, touristPlace.getImageURL());
         values.put(DataContract.TouristPlace.RATING, touristPlace.getRating());
+        values.put(DataContract.TouristPlace.FAVORITE, touristPlace.getFavorite());
 
         long insertId = database.insert(TouristicSQLHelper.TABLE_PLACES, null, values);
 
@@ -149,7 +151,8 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
                 cursor.getString(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.PRICE)),
                 location,
                 cursor.getString(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.IMAGE_URL)),
-                cursor.getFloat(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.RATING))
+                cursor.getFloat(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.RATING)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.FAVORITE))>0
         );
 
         return touristPlaceModel;

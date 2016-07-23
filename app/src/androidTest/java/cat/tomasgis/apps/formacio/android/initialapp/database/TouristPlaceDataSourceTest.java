@@ -29,6 +29,7 @@ public class TouristPlaceDataSourceTest {
     private static final String TPM_PLACE_BASE = "TPM_PLACE_BASE";
     private static final String TPM_PRICE_BASE = "TPM_PRICE_BASE";
     private static final String TPM_URL_BASE = "TPM_URL_BASE";
+    private static final boolean TPM_FAVORITE = true;
 
     private static final int NUM_FIELDS = 9; /** Number of fields of the table {@Link DataContract.TouristPlaceFields}*/
 
@@ -72,7 +73,9 @@ public class TouristPlaceDataSourceTest {
                     TPM_PRICE_BASE+i,
                     new LatLng(41.113060, 1.242497),
                     TPM_URL_BASE+i,
-                    (float)i%5));
+                    (float)i%5,
+                     TPM_FAVORITE)
+             );
 
             assertFalse(String.format("%s :: creation of the element %d returns %d",TAG,i,id),id<=0);
         }
@@ -139,7 +142,7 @@ public class TouristPlaceDataSourceTest {
                 TPM_PRICE_BASE+11,
                 new LatLng(41.113060, 1.242497),
                 TPM_URL_BASE+11,
-                (float)11));
+                (float)11, TPM_FAVORITE));
 
         assertTrue(TAG+"Inserting element... failed",check);
         TouristPlaceModel touristPlaceModel = this.instance.query(TPM_NAME_BASE+11);

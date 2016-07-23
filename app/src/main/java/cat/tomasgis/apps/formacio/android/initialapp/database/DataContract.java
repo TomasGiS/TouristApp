@@ -24,6 +24,7 @@ public class DataContract {
         public static final String LOCATION_LON = "LOCATION_LON";
         public static final String IMAGE_URL = "IMAGE_URL";
         public static final String RATING ="RATING";
+        public static final String FAVORITE ="FAVORITE";
     }
 
     public class TouristPlace implements TouristPlaceFields,BaseColumns {

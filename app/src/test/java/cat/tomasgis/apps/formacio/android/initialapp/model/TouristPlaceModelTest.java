@@ -24,6 +24,7 @@ public class TouristPlaceModelTest {
     private String PLACE = "Some location place";
     private String IMAGE_URL = "http://some.domain.in";
     private float RATING = 1.5f;
+    private boolean FAVORITE = true;
 
     //Getter And Setter values
     private String TITLE_SG = "Cubisme";
@@ -34,13 +35,14 @@ public class TouristPlaceModelTest {
     private String PLACE_SG = "The second place";
     private String IMAGE_URL_SG = "http://some.other.domain.in";
     private float RATING_SG = 3.5f;
+    private boolean FAVORITE_SG = false;
 
     @Before
     public void prepareData()
     {
 
 
-        touristPlaceModel = new TouristPlaceModel(TITLE,DESCRIPTION, APERTURE_TIME,PLACE,PRICE,LOCATION,IMAGE_URL,RATING);
+        touristPlaceModel = new TouristPlaceModel(TITLE,DESCRIPTION, APERTURE_TIME,PLACE,PRICE,LOCATION,IMAGE_URL,RATING,FAVORITE);
     }
 
     @Test
@@ -140,6 +142,17 @@ public class TouristPlaceModelTest {
         touristPlaceModel.setRating(RATING_SG);
         assertTrue(touristPlaceModel.getRating() == RATING_SG);
         assertFalse(touristPlaceModel.getRating() == RATING);
+    }
+
+    @Test
+    public void favoriteValidate()
+    {
+        assertTrue(touristPlaceModel.getFavorite() == FAVORITE);
+
+        //Setter And Getter Check
+        touristPlaceModel.setFavorite(FAVORITE_SG);
+        assertTrue(touristPlaceModel.getFavorite() == FAVORITE_SG);
+        assertFalse(touristPlaceModel.getFavorite() == FAVORITE);
     }
 
     /*

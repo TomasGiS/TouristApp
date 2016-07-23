@@ -76,6 +76,8 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         if (timeText != null) timeText.setText(this.touristPlaceModel.getApertureTime());
         if (descriptionText != null)  descriptionText.setText(this.touristPlaceModel.getDescription());
 
+        changeFavoriteState((ImageView) this.findViewById(R.id.tourist_detail_favorite), this.touristPlaceModel.getFavorite());
+
         ImageView placeIcon = (ImageView) this.findViewById(R.id.main_place_icon);
         LinearLayout  placeLayout = (LinearLayout)this.findViewById(R.id.main_place_layout);
 
@@ -123,7 +125,11 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
 
     }
 
-
+    private void changeFavoriteState(ImageView imageView, boolean isFavorite)
+    {
+        if (isFavorite) imageView.setImageResource(R.drawable.ic_star_white);
+        else imageView.setImageResource(R.drawable.ic_star_border);
+    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {

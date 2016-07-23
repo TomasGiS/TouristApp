@@ -34,6 +34,17 @@
                     android:foreground="@color/dim_foreground_disabled_material_light"
                      />
 
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/imageView2"
+                    android:src="@drawable/ic_star_border"
+                    android:tint="@color/colorPrimaryDark"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

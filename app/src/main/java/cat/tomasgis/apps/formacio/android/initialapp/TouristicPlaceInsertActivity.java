@@ -41,8 +41,10 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
     private RatingBar ratingView;
     private EditText descriptionView;
     private MapFragment mapFragment;
+    private ImageView favoriteView;
 
     private LatLng location;
+    private boolean isFavorite = false;
 
     TouristPlaceModel touristPlaceModel;
 
@@ -77,7 +79,8 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
                             priceView.getText().toString(),
                             location,
                             imageURLView.getText().toString(),
-                            ratingView.getRating()
+                            ratingView.getRating(),isFavorite
+
                     );
                     msg = getString(R.string.place_added);
                     instance.addTouristPlace(touristPlaceModel);
@@ -117,6 +120,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         addressView = (EditText) this.findViewById(R.id.tourist_insert_place);
         ratingView = (RatingBar)this.findViewById(R.id.tourist_insert_rate);
         descriptionView = (EditText)this.findViewById(R.id.tourist_insert_description);
+        favoriteView = (ImageView) this.findViewById(R.id.tourist_insert_favorite);
 
         mapFragment = (MapFragment)this.getFragmentManager().findFragmentById(R.id.map);
         //TODO: show map if the address is valid
@@ -167,7 +171,23 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
             });
 
         //Rating bar
+        //Do nothing
 
+        //Favorite
+        favoriteView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFavoriteState();
+            }
+        });
+
+    }
+
+    private void changeFavoriteState()
+    {
+        isFavorite = !isFavorite;
+        if (isFavorite) favoriteView.setImageResource(R.drawable.ic_star_white);
+        else favoriteView.setImageResource(R.drawable.ic_star_border);
     }
 
     private void showMapData(LatLng location) {
