@@ -39,7 +39,7 @@
                     android:layout_height="40dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:id="@+id/imageView2"
+                    android:id="@+id/tourist_detail_favorite"
                     android:src="@drawable/ic_star_border"
                     android:tint="@color/colorPrimaryDark"
                     android:layout_marginTop="10dp"

@@ -51,7 +51,8 @@
             android:id="@+id/tourist_detail_ratingbar"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:numStars="5" />
+            android:numStars="5"
+            android:isIndicator="true"/>
 
     </RelativeLayout>
 
