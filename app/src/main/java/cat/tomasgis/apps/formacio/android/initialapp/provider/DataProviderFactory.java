@@ -1,10 +1,8 @@
-package cat.tomasgis.apps.formacio.android.initialapp;
+package cat.tomasgis.apps.formacio.android.initialapp.provider;
 
 import android.content.Context;
 
-import cat.tomasgis.apps.formacio.android.initialapp.database.TouristPlaceDBProvider;
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
-import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
 /**
  * Created by TomasGiS on 21/7/16.

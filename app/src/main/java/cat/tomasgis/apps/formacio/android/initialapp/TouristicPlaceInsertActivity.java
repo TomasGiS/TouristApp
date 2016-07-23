@@ -28,7 +28,7 @@ import java.util.Locale;
 import cat.tomasgis.apps.Utils.Utils;
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
-import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
+import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProviderFactory;
 
 //TODO:check rotation. Save data?
 public class TouristicPlaceInsertActivity extends AppCompatActivity implements View.OnFocusChangeListener {

@@ -1,4 +1,4 @@
-package cat.tomasgis.apps.formacio.android.initialapp.database;
+package cat.tomasgis.apps.formacio.android.initialapp.provider;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,6 +11,8 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
+import cat.tomasgis.apps.formacio.android.initialapp.database.DataContract;
+import cat.tomasgis.apps.formacio.android.initialapp.database.TouristicSQLHelper;
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 

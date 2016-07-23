@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.Iterator;
 
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
+import cat.tomasgis.apps.formacio.android.initialapp.provider.TouristPlaceDBProvider;
 
 import static org.junit.Assert.*;
 

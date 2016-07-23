@@ -10,12 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
+import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProviderFactory;
 
 public class TouristPlacesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
