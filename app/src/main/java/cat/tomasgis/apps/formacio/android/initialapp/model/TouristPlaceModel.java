@@ -21,6 +21,7 @@ public class TouristPlaceModel implements Parcelable {
     public static final String LOCATION = "LOCATION";
     public static final String IMAGE_URL = "IMAGE_URL";
     public static final String RATING ="RATING";
+    public static final String FAVORITE = "FAVORITE";
 
 
     private String mTitle;
@@ -31,10 +32,11 @@ public class TouristPlaceModel implements Parcelable {
     private LatLng mLocation;
     private String mImageURL;
     private float mRating;
+    private boolean mFavorite;
 
     public TouristPlaceModel(String title, String description, String apertureTime,
                              String place,
-                             String price, LatLng location, String imageURL, float rating) {
+                             String price, LatLng location, String imageURL, float rating, boolean favorite) {
         this.mTitle = title;
         this.mDescription = description;
         this.mApertureTime = apertureTime;
@@ -43,6 +45,7 @@ public class TouristPlaceModel implements Parcelable {
         this.mLocation = location;
         this.mRating = rating;
         this.mImageURL = imageURL;
+        this.mFavorite = favorite;
     }
 
 
@@ -55,6 +58,7 @@ public class TouristPlaceModel implements Parcelable {
         mLocation = in.readParcelable(LatLng.class.getClassLoader());
         mImageURL = in.readString();
         mRating = in.readFloat();
+        mFavorite = in.readByte() != 0;
     }
 
     @Override
@@ -67,6 +71,7 @@ public class TouristPlaceModel implements Parcelable {
         dest.writeParcelable(mLocation, flags);
         dest.writeString(mImageURL);
         dest.writeFloat(mRating);
+        dest.writeByte((byte) (mFavorite ? 1 : 0));
     }
 
     @Override
@@ -121,6 +126,8 @@ public class TouristPlaceModel implements Parcelable {
         this.mRating = rating;
     }
 
+    public void setFavorite (boolean favorite){this.mFavorite =favorite;}
+
     public String getTitle() {
         return mTitle;
     }
@@ -151,6 +158,8 @@ public class TouristPlaceModel implements Parcelable {
 
     public float getRating(){return this.mRating;}
 
+    public boolean getFavorite() {return mFavorite;}
+
     @Deprecated
     public Bundle getDataBundle()
     {
@@ -162,7 +171,8 @@ public class TouristPlaceModel implements Parcelable {
         bundle.putString(TouristPlaceModel.PLACE,this.mPlace);
         bundle.putParcelable(TouristPlaceModel.LOCATION,this.mLocation);
         bundle.putString(TouristPlaceModel.IMAGE_URL,this.mImageURL);
-        bundle.putFloat(TouristPlaceModel.LOCATION,this.mRating);
+        bundle.putFloat(TouristPlaceModel.RATING,this.mRating);
+        bundle.putBoolean(TouristPlaceModel.FAVORITE, this.mFavorite);
 
         return bundle;
     }
@@ -177,6 +187,7 @@ public class TouristPlaceModel implements Parcelable {
         this.mLocation = bundle.getParcelable(TouristPlaceModel.LOCATION);
         this.mImageURL = bundle.getString(TouristPlaceModel.IMAGE_URL);
         this.mRating = bundle.getFloat(TouristPlaceModel.RATING);
+        this.mFavorite = bundle.getBoolean(TouristPlaceModel.FAVORITE);
     }
 
 
