@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 
 import static org.junit.Assert.*;
@@ -146,7 +148,25 @@ public class TouristPlaceDataSourceTest {
 
     @Test
     public void testGetIterableCursor() throws Exception {
-        assertTrue("Not implemented",false);
+
+        TouristPlaceModel touristPlaceModel = null;
+
+        this.testCreate();
+
+        Iterator<TouristPlaceModel> iter= this.instance.iterator();
+        int counter = 0;
+        int number = this.instance.getNumberOfPlaces();
+        while(!iter.hasNext())
+        {
+            touristPlaceModel = iter.next();
+            counter++;
+        }
+
+        assertFalse(TAG + "  accessible elements number is not with iterator",number==counter);
+
+        this.testClearData();
+
+
     }
 
     @Test
