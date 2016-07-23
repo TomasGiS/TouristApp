@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
@@ -35,6 +36,7 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
     private TouristicSQLHelper dbHelper;
 
     private static TouristPlaceDBProvider instance;
+    private LinkedHashMap<String, TouristPlaceModel> allTouristPlaces = null;
 
 
     private TouristPlaceDBProvider(){};
@@ -224,6 +226,17 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
         long id = this.create(touristPlaceModel);
 
         return (id>=0);
+    }
+
+    /**
+     * Warning. The method can run a lot of time if the number of {@Link TouristPlaceModel} os huge.
+     * @return
+     */
+    @Deprecated
+    @Override
+    public Iterator<TouristPlaceModel> iterator() {
+        allTouristPlaces= this.getAllTouristPlaces();
+        return allTouristPlaces.values().iterator();
     }
 
     public Cursor getIterableCursor()

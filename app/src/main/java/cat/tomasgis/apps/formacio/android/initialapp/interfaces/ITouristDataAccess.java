@@ -19,6 +19,6 @@ public interface ITouristDataAccess  {
 
     boolean addTouristPlace(TouristPlaceModel touristPlaceModel);
 
-    //public Iterator<ITouristDataAccess> Iterator();
+    public Iterator<TouristPlaceModel> iterator();
 
 }

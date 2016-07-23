@@ -110,6 +110,8 @@ public class DataProvider implements Iterable<TouristPlaceModel>, ITouristDataAc
         return true;
     }
 
+
+
     @Override
     public Iterator<TouristPlaceModel> iterator() {
         if (placesData == null) return null;
