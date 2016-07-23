@@ -30,8 +30,8 @@ import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
-    //ITouristDataAccess instance = DataProviderFactory.getDataSource(MainActivity.this.getApplicationContext(), DataProviderFactory.TouristicDataSourceType.DabaseData);
-    DataProvider instance = DataProvider.getInstance();
+    ITouristDataAccess instance = null;
+    //DataProvider instance = DataProvider.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        //Connect to Database provider
+        instance = DataProviderFactory.getDataSource(MainActivity.this.getApplicationContext(), DataProviderFactory.TouristicDataSourceType.DabaseData);
 
     }
 

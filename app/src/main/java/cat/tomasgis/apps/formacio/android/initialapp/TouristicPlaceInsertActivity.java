@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 
 import cat.tomasgis.apps.Utils.Utils;
+import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
@@ -48,7 +49,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
 
     TouristPlaceModel touristPlaceModel;
 
-    DataProvider instance = DataProvider.getInstance();
+    ITouristDataAccess instance= null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,9 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
 
             }
         });
+
+        //Data provider connect
+        instance = DataProviderFactory.getDataSource(this, DataProviderFactory.TouristicDataSourceType.DabaseData);
 
 
     }

@@ -27,7 +27,7 @@ public class TouristicSQLHelper extends SQLiteOpenHelper{
             + DataContract.TouristPlace.LOCATION_LAT + " text not null,"
             + DataContract.TouristPlace.LOCATION_LON + " text not null,"
             + DataContract.TouristPlace.IMAGE_URL + " text not null,"
-            + DataContract.TouristPlace.RATING + " text not null"
+            + DataContract.TouristPlace.RATING + " text not null,"
             + DataContract.TouristPlace.FAVORITE + " text not null"
             + ");";
 

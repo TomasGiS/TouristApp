@@ -13,18 +13,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
 public class TouristPlacesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
 
-    DataProvider dataProvider = DataProvider.getInstance();
+    ITouristDataAccess dataProvider = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourist_places_list);
+
+        dataProvider = DataProviderFactory.getDataSource(this,DataProviderFactory.TouristicDataSourceType.DabaseData);
     }
 
     @Override
