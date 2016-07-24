@@ -24,10 +24,10 @@ public class DataProviderTest {
 
     private final String imageURL = "http://www.sidorme.com/uploads/46182-GAUDI.jpg";
 
-    TouristPlaceModel tpm1 = new TouristPlaceModel("Modernisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","Somewhere","5 €",new LatLng(41.113060, 1.242497),imageURL,1.5f,true);
-    TouristPlaceModel tpm2 = new TouristPlaceModel("Cubisme","Some Description", "Dilluns a Divendres\n10:00 a 18:00","Somewhere","9 €",new LatLng(41.114879, 1.241049),imageURL,2.0f,false);
-    TouristPlaceModel tpm3 = new TouristPlaceModel("Impresionisme","Some Description", "Dilluns a Divendres\n14:00 a 18:00","Somewhere","15 €", new LatLng(41.114507, 1.243540),imageURL,3.5f,true);
-    TouristPlaceModel tpm4 = new TouristPlaceModel("Neoclàsic","Some Description", "Dilluns a Divendres\n17:00 a 18:00","Somewhere","50 €", new LatLng(41.112300, 1.240997),imageURL,0.5f,false);
+    TouristPlaceModel tpm1 = new TouristPlaceModel("001","Modernisme","Some Description", "Dilluns a Divendres\n8:00 a 18:00","Somewhere","5 €",new LatLng(41.113060, 1.242497),imageURL,1.5f,true);
+    TouristPlaceModel tpm2 = new TouristPlaceModel("002","Cubisme","Some Description", "Dilluns a Divendres\n10:00 a 18:00","Somewhere","9 €",new LatLng(41.114879, 1.241049),imageURL,2.0f,false);
+    TouristPlaceModel tpm3 = new TouristPlaceModel("003","Impresionisme","Some Description", "Dilluns a Divendres\n14:00 a 18:00","Somewhere","15 €", new LatLng(41.114507, 1.243540),imageURL,3.5f,true);
+    TouristPlaceModel tpm4 = new TouristPlaceModel("004","Neoclàsic","Some Description", "Dilluns a Divendres\n17:00 a 18:00","Somewhere","50 €", new LatLng(41.112300, 1.240997),imageURL,0.5f,false);
 
     @Before
     public void prepareData()

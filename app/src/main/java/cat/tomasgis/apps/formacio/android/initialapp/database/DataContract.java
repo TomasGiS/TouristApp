@@ -16,6 +16,7 @@ public class DataContract {
     {
 
         public static final String TITLE = "TITLE";
+        public static final String ID = "ID";
         public static final String DESCRIPTION = "DESCRIPTION";
         public static final String APERTURE_TIME = "APERTURE_TIME";
         public static final String PRICE = "PRICE";

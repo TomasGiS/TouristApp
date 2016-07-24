@@ -20,6 +20,7 @@ public class TouristicSQLHelper extends SQLiteOpenHelper{
             + TABLE_PLACES + "( "
             + DataContract.TouristPlace._ID + " integer primary key autoincrement, "
             + DataContract.TouristPlace.TITLE + " text not null,"
+            + DataContract.TouristPlace.ID + " text not null,"
             + DataContract.TouristPlace.DESCRIPTION + " text not null,"
             + DataContract.TouristPlace.APERTURE_TIME + " text not null,"
             + DataContract.TouristPlace.PRICE + " text not null,"

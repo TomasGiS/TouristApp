@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
-import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
+import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProviderFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{

@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class TouristPlaceModel implements Parcelable {
 
     public static final String TITLE = "TITLE";
+    public static final String ID = "ID";
     public static final String DESCRIPTION = "DESCRIPTION";
     public static final String APERTURE_TIME = "APERTURE_TIME";
     public static final String PRICE = "PRICE";
@@ -24,6 +25,7 @@ public class TouristPlaceModel implements Parcelable {
     public static final String FAVORITE = "FAVORITE";
 
 
+    private String mId;
     private String mTitle;
     private String mDescription;
     private String mApertureTime;
@@ -34,9 +36,10 @@ public class TouristPlaceModel implements Parcelable {
     private float mRating;
     private boolean mFavorite;
 
-    public TouristPlaceModel(String title, String description, String apertureTime,
+    public TouristPlaceModel(String id, String title, String description, String apertureTime,
                              String place,
                              String price, LatLng location, String imageURL, float rating, boolean favorite) {
+        this.mId = id;
         this.mTitle = title;
         this.mDescription = description;
         this.mApertureTime = apertureTime;
@@ -50,6 +53,7 @@ public class TouristPlaceModel implements Parcelable {
 
 
     protected TouristPlaceModel(Parcel in) {
+        mId = in.readString();
         mTitle = in.readString();
         mDescription = in.readString();
         mApertureTime = in.readString();
@@ -63,6 +67,7 @@ public class TouristPlaceModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
         dest.writeString(mTitle);
         dest.writeString(mDescription);
         dest.writeString(mApertureTime);
@@ -90,6 +95,10 @@ public class TouristPlaceModel implements Parcelable {
             return new TouristPlaceModel[size];
         }
     };
+
+    public void setId(String id) {
+        this.mId = id;
+    }
 
     public void setTitle(String title) {
         this.mTitle = title;
@@ -128,6 +137,10 @@ public class TouristPlaceModel implements Parcelable {
 
     public void setFavorite (boolean favorite){this.mFavorite =favorite;}
 
+    public String getId() {
+        return mId;
+    }
+
     public String getTitle() {
         return mTitle;
     }
@@ -164,6 +177,7 @@ public class TouristPlaceModel implements Parcelable {
     public Bundle getDataBundle()
     {
         Bundle bundle = new Bundle();
+        bundle.getString(TouristPlaceModel.ID,mId);
         bundle.putString(TouristPlaceModel.TITLE,this.mTitle);
         bundle.putString(TouristPlaceModel.PRICE,this.mPrice);
         bundle.putString(TouristPlaceModel.DESCRIPTION,this.mDescription);
@@ -179,6 +193,7 @@ public class TouristPlaceModel implements Parcelable {
     @Deprecated
     public void loadFromBundle(Bundle bundle)
     {
+        this.mId = bundle.getString(TouristPlaceModel.ID);
         this.mTitle = bundle.getString(TouristPlaceModel.TITLE);
         this.mPrice = bundle.getString(TouristPlaceModel.PRICE);
         this.mDescription = bundle.getString(TouristPlaceModel.DESCRIPTION);

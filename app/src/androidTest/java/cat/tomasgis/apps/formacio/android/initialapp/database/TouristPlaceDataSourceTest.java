@@ -67,7 +67,9 @@ public class TouristPlaceDataSourceTest {
         long id = 0;
         for (int i=0;i<NUM_ELEMENTS;i++)
         {
-             id = instance.create( new TouristPlaceModel(TPM_NAME_BASE+String.valueOf(i),
+             id = instance.create( new TouristPlaceModel(
+                    String.format("00%d",i),
+                    TPM_NAME_BASE+String.valueOf(i),
                     TPM_DESCRIPTION_BASE+i,
                     TPM_APERTURE_BASE+i,
                     TPM_PLACE_BASE+i,
@@ -136,7 +138,9 @@ public class TouristPlaceDataSourceTest {
     @Test
     public void testAddTouristPlace() throws Exception {
         this.testCreate();
-        boolean check = this.instance.addTouristPlace(new TouristPlaceModel(TPM_NAME_BASE+11,
+        boolean check = this.instance.addTouristPlace(new TouristPlaceModel(
+                "088",
+                TPM_NAME_BASE+11,
                 TPM_DESCRIPTION_BASE+11,
                 TPM_APERTURE_BASE+11,
                 TPM_PLACE_BASE+11,

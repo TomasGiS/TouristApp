@@ -9,18 +9,18 @@ android {
 
     signingConfigs {
         release {
-            keyAlias ''
-            keyPassword ''
-            storeFile file('')
-            storePassword ''
+            keyAlias 'TomasGiS'
+            keyPassword '***REMOVED***'
+            storeFile file('/home2/docencia/Impulsa/credencials/certificate_android.jks')
+            storePassword '***REMOVED***'
         }
     }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
         applicationId "cat.tomasgis.apps.formacio.android.initialapp"
-        minSdkVersion 23
-        targetSdkVersion 23
+        minSdkVersion 22
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
 

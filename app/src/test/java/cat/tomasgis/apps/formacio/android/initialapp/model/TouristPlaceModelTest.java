@@ -16,6 +16,7 @@ public class TouristPlaceModelTest {
     TouristPlaceModel touristPlaceModel;
 
     //Constructor values
+    private String ID = "0079";
     private String TITLE = "Modernisme";
     private String DESCRIPTION = "Some Description";
     private String APERTURE_TIME = "Dilluns a Divendres\n8:00 a 18:00";
@@ -42,7 +43,7 @@ public class TouristPlaceModelTest {
     {
 
 
-        touristPlaceModel = new TouristPlaceModel(TITLE,DESCRIPTION, APERTURE_TIME,PLACE,PRICE,LOCATION,IMAGE_URL,RATING,FAVORITE);
+        touristPlaceModel = new TouristPlaceModel(ID,TITLE,DESCRIPTION, APERTURE_TIME,PLACE,PRICE,LOCATION,IMAGE_URL,RATING,FAVORITE);
     }
 
     @Test

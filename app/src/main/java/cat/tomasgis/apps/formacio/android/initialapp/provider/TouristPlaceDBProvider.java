@@ -22,6 +22,7 @@ import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 public class TouristPlaceDBProvider implements  ITouristDataAccess {
 
     final String[] FIELDS = {DataContract.TouristPlace._ID,
+            DataContract.TouristPlace.ID,
             DataContract.TouristPlace.TITLE,
             DataContract.TouristPlace.DESCRIPTION,
             DataContract.TouristPlace.APERTURE_TIME,
@@ -90,6 +91,7 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
 
         ContentValues values = new ContentValues();
         values.put(DataContract.TouristPlace.TITLE, touristPlace.getTitle());
+        values.put(DataContract.TouristPlace.ID, touristPlace.getId());
         values.put(DataContract.TouristPlace.DESCRIPTION, touristPlace.getDescription());
         values.put(DataContract.TouristPlace.APERTURE_TIME, touristPlace.getApertureTime());
         values.put(DataContract.TouristPlace.PLACE, touristPlace.getPlace());
@@ -146,6 +148,7 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
                 cursor.getDouble(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.LOCATION_LON)));
 
         TouristPlaceModel touristPlaceModel = new TouristPlaceModel(
+                cursor.getString(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.ID)),
                 cursor.getString(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.TITLE)),
                 cursor.getString(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.DESCRIPTION)),
                 cursor.getString(cursor.getColumnIndexOrThrow(DataContract.TouristPlace.APERTURE_TIME)),

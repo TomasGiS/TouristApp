@@ -73,6 +73,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
 
                 if (location!= null) {
                     touristPlaceModel = new TouristPlaceModel(
+                            "0088",
                             nameView.getText().toString(),
                             descriptionView.getText().toString(),
                             apertureTimeView.getText().toString(),
