@@ -6,8 +6,14 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Menu -->
     <string name="action_settings">Configuració</string>
+    <string name="action_edit">Edició</string>
+    <string name="action_delete">Esborrar</string>
+
+    <!-- Header -->
     <string name="title_activity_touristic_place_insert">Afegir</string>
+    <string name="title_activity_touristic_place_favorite">Favorits</string>
     <string name="place_name">Nom lloc</string>
     <string name="place_image_url">URL Imatge</string>
     <string name="place_aperture_time">Hora d\'obertura</string>

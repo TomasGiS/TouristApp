@@ -26,10 +26,15 @@ public class TouristContentProvider extends ContentProvider{
     // used for the UriMacher
     private static final int PLACES = 100;
     private static final int PLACES_ID = 101;
+    private static final int PLACES_TITLE = 102;
 
-    private static final String AUTHORITY = "cat.tomasgis.android.tourist.contentprovider";
+    private static final int FAVORITES = 105;
 
-    private static final String PLACES_BASE_PATH = "places";
+    public static final String AUTHORITY = "cat.tomasgis.android.tourist.contentprovider";
+
+    public static final String PLACES_BASE_PATH = "places";
+    public static final String FAVORITES_BASE_PATH = "favorites";
+
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
             + "/" + PLACES_BASE_PATH);
 
@@ -43,6 +48,8 @@ public class TouristContentProvider extends ContentProvider{
     static {
         sURIMatcher.addURI(AUTHORITY, PLACES_BASE_PATH, PLACES);
         sURIMatcher.addURI(AUTHORITY, PLACES_BASE_PATH + "/#", PLACES_ID);
+        sURIMatcher.addURI(AUTHORITY, PLACES_BASE_PATH + "/*", PLACES_TITLE);
+        sURIMatcher.addURI(AUTHORITY, FAVORITES_BASE_PATH, FAVORITES);
     }
 
 
@@ -66,7 +73,15 @@ public class TouristContentProvider extends ContentProvider{
 
         int uriType = sURIMatcher.match(uri);
         switch (uriType) {
+            case FAVORITES:
+                // adding the Favorite condition to the original query
+                queryBuilder.appendWhere(DataContract.TouristPlace.FAVORITE + "> 0");
             case PLACES:
+                break;
+            case PLACES_TITLE:
+                // adding the TITLE to the original query
+                queryBuilder.appendWhere(DataContract.TouristPlace.TITLE + "="
+                        + uri.getLastPathSegment());
                 break;
             case PLACES_ID:
                 // adding the ID to the original query
@@ -160,13 +175,9 @@ public class TouristContentProvider extends ContentProvider{
                             DataContract.TouristPlace.ID + "=" + id,
                             null);
                 } else {
-                    rowsUpdated = sqlDB.update(TouristicSQLHelper.TABLE_PLACES,
-                            values,
-                            DataContract.TouristPlace.ID + "=" + id
-                                    + " and "
-                                    + selection,
-                            selectionArgs);
+                    throw new IllegalArgumentException("ID not present at URI: " + uri);
                 }
+
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);

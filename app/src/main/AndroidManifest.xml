@@ -3,17 +3,17 @@
     package="cat.tomasgis.apps.formacio.android.initialapp">
 
     <!-- This is required for Picasso to work. -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- The following permissions are OPTIONAL. -->
 
-    <!-- Used to adjust the work load depending on the type of network the device is using. -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!-- Used to load images from the gallery content provider. -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!-- Used to load images for contact photos. -->
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
+    <!-- Used to adjust the work load depending on the type of network the device is using. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Used to load images from the gallery content provider. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Used to load images for contact photos. -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
@@ -34,13 +34,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/maps_api_key" />
 
+        <provider
+            android:name=".provider.TouristContentProvider"
+            android:authorities="cat.tomasgis.android.tourist.contentprovider"></provider>
+
         <activity
             android:name=".TouristPlaceDetailActivity"
             android:parentActivityName=".TouristPlacesListActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".TouristPlacesListActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -54,8 +59,19 @@
         <activity
             android:name=".TouristicPlaceInsertActivity"
             android:label="@string/title_activity_touristic_place_insert"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".TouristFavoriteListActivity"
+            android:label="@string/title_activity_touristic_place_favorite"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme"
+            />
+
+        <activity-alias
+            android:name="cat.tomasgis.apps.formacio.android.initialapp.TouristicPlaceEditActivity"
+            android:targetActivity=".TouristicPlaceInsertActivity"
+            android:parentActivityName=".TouristPlaceDetailActivity"/>
     </application>
 
 </manifest>

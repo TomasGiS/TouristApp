@@ -119,11 +119,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_tourist_places) {
-            // Handle the camera action
             Intent intent = new Intent(this,TouristPlacesListActivity.class);
             this.startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.nav_tourist_favorite_places) {
+            Intent intent = new Intent(this,TouristFavoriteListActivity.class);
+            this.startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

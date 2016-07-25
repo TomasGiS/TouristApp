@@ -80,7 +80,7 @@ public class TouristPlaceDataSourceTest {
                      TPM_FAVORITE)
              );
 
-            assertFalse(String.format("%s :: creation of the element %d returns %d",TAG,i,id),id<=0);
+            assertFalse(String.format("%s :: creation of the element %d returns %d (are FIELDS changed?)",TAG,i,id),id<=0);
         }
     }
 

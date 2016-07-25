@@ -7,8 +7,8 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Touristic Places" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_tourist_favorite_places"
+            android:icon="@drawable/ic_menu_starred"
             android:title="Gallery" />
         <item
             android:id="@+id/nav_slideshow"

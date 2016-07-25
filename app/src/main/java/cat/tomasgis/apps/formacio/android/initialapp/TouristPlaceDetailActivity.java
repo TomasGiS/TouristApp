@@ -1,11 +1,14 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.media.Rating;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
@@ -22,7 +26,7 @@ import cat.tomasgis.apps.Utils.Utils;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 
-public class TouristPlaceDetailActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
+public class TouristPlaceDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = TouristPlaceDetailActivity.class.getSimpleName();
     //String dataName;
@@ -32,10 +36,26 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourist_place_detail);
 
-        Intent intent = this.getIntent();
 
+        Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        if (savedInstanceState != null)
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences(DataProvider.SERIALIZABLE_DATA_KEY,MODE_PRIVATE);
+        String json = sharedPreferences.getString(DataProvider.SERIALIZABLE_DATA_KEY, "");
+
+
+        if (!json.isEmpty())
+        {
+            Gson gson = new Gson();
+            touristPlaceModel = gson.fromJson(json, TouristPlaceModel.class);
+
+            //Clear data after use it
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(DataProvider.SERIALIZABLE_DATA_KEY,"");
+            editor.apply();
+        }
+        else if (savedInstanceState != null)
         {
             this.touristPlaceModel = (TouristPlaceModel)savedInstanceState.getParcelable(DataProvider.SERIALIZABLE_DATA_KEY);
             //dataName = this.touristPlaceModel.getTitle();
@@ -48,9 +68,9 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         else
         {
             Log.e(TouristPlaceDetailActivity.class.getSimpleName(),
-                    "Falta la variable DATA_NAME");
+                    "Les dades a mostrar no són accessibles");
 
-            Toast.makeText(this,"Falta la variable DATA_NAME",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Les dades a mostrar no són accessibles",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -78,18 +98,6 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
 
         changeFavoriteState((ImageView) this.findViewById(R.id.tourist_detail_favorite), this.touristPlaceModel.getFavorite());
 
-        ImageView placeIcon = (ImageView) this.findViewById(R.id.main_place_icon);
-        LinearLayout  placeLayout = (LinearLayout)this.findViewById(R.id.main_place_layout);
-
-        ImageView mainHeader = (ImageView) this.findViewById(R.id.main_header);
-        if (mainHeader != null)
-            mainHeader.setOnTouchListener(this);
-
-        if (placeIcon != null)
-            placeIcon.setOnClickListener(this);
-
-        if (placeLayout != null)
-            placeLayout.setOnClickListener(this);
 
         Picasso.with(this).load(touristPlaceModel.getImageURL()).placeholder(R.color.colorPrimary).into((ImageView)findViewById( R.id.main_header));
 
@@ -99,29 +107,6 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         ((TextView)this.findViewById(R.id.tourist_insert_currency)).setText(this.getString(R.string.currency,
                 Utils.getCurrencySymbol(locale),
                 Utils.getCurrencyCode(locale)));
-        /*
-
-        placeText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMessage("Place text");
-            }
-        });
-
-        placeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMessage("Place Icon");
-            }
-        });
-
-        placeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMessage("Place Layout");
-            }
-        });
-    */
 
     }
 
@@ -170,22 +155,39 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
 
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
 
-        if (v.getId() == R.id.main_header)
-        {
-            if (event.getAction() == MotionEvent.ACTION_DOWN)
-            {
-                showMessage("Going Down");
-                return true;
-            }
-            if (event.getAction() == MotionEvent.ACTION_UP)
-            {
-                showMessage("Going UP");
-                return true;
-            }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_edit) {
+            //Save data from edit return
+            SharedPreferences sharedPreferences = getSharedPreferences(DataProvider.SERIALIZABLE_DATA_KEY,MODE_PRIVATE);
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+
+            Gson gson = new Gson();
+            String json = gson.toJson(touristPlaceModel);
+            edit.putString(DataProvider.SERIALIZABLE_DATA_KEY, json);
+            edit.apply();
+
+
+            Intent intent = new Intent();
+            intent.setClassName(this, "cat.tomasgis.apps.formacio.android.initialapp.TouristicPlaceEditActivity");
+
+            this.startActivity(intent);
+            return true;
+        } else if (id == R.id.action_delete) {
+
+            return true;
         }
-        return false;
+
+        return super.onOptionsItemSelected(item);
     }
 }

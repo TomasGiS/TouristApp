@@ -28,6 +28,7 @@ public class TouristPlaceModelTest {
     private boolean FAVORITE = true;
 
     //Getter And Setter values
+    private String ID_SG = "0080";
     private String TITLE_SG = "Cubisme";
     private String DESCRIPTION_SG = "The default Description";
     private String APERTURE_TIME_SG = "Dimarts a Divendres\n9:00 a 20:00";
@@ -44,6 +45,18 @@ public class TouristPlaceModelTest {
 
 
         touristPlaceModel = new TouristPlaceModel(ID,TITLE,DESCRIPTION, APERTURE_TIME,PLACE,PRICE,LOCATION,IMAGE_URL,RATING,FAVORITE);
+    }
+
+    @Test
+    public void titleId()
+    {
+        //Constructor and Getter
+        assertTrue(touristPlaceModel.getId().equals(ID));
+
+        //Setter And Getter Check
+        touristPlaceModel.setId(ID_SG);
+        assertTrue(touristPlaceModel.getId().equals(ID_SG));
+        assertFalse(touristPlaceModel.getId().equals(ID));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,15 +22,19 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 import cat.tomasgis.apps.Utils.Utils;
+import cat.tomasgis.apps.formacio.android.initialapp.database.DataContract;
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
+import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProviderFactory;
 
 //TODO:check rotation. Save data?
@@ -49,7 +56,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
 
     TouristPlaceModel touristPlaceModel;
 
-    ITouristDataAccess instance= null;
+    //ITouristDataAccess instance= null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +79,12 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
                 String msg = getString(R.string.place_not_added);
 
                 if (location!= null) {
+
+                    Calendar calendar = Calendar.getInstance(Locale.getDefault());
+                    long time = calendar.getTime().getTime();
+
                     touristPlaceModel = new TouristPlaceModel(
-                            "0088",
+                            String.valueOf(time),
                             nameView.getText().toString(),
                             descriptionView.getText().toString(),
                             apertureTimeView.getText().toString(),
@@ -85,7 +96,12 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
 
                     );
                     msg = getString(R.string.place_added);
-                    instance.addTouristPlace(touristPlaceModel);
+                    //Insert using database SQLOpenHelper
+                    //instance.addTouristPlace(touristPlaceModel);
+
+                    //TODO: First check update
+                    //Insert using contentprovider
+                    getContentResolver().insert(DataContract.TouristPlace.buildPlaceUri(),DataContract.TouristPlace.touristPlaceToContentValues(touristPlaceModel));
                 }
                 Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
                         .show();
@@ -95,9 +111,37 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         });
 
         //Data provider connect
-        instance = DataProviderFactory.getDataSource(this, DataProviderFactory.TouristicDataSourceType.DabaseData);
+        //instance = DataProviderFactory.getDataSource(this, DataProviderFactory.TouristicDataSourceType.DabaseData);
+
+        //Load data for edit
+        SharedPreferences sharedPreferences = getSharedPreferences(DataProvider.SERIALIZABLE_DATA_KEY,MODE_PRIVATE);
+        String json = sharedPreferences.getString(DataProvider.SERIALIZABLE_DATA_KEY, "");
 
 
+        if (!json.isEmpty())
+        {
+            Gson gson = new Gson();
+            touristPlaceModel = gson.fromJson(json, TouristPlaceModel.class);
+            //Clear data after use it
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(DataProvider.SERIALIZABLE_DATA_KEY,"");
+            editor.apply();
+        }
+    }
+
+    private void initData(TouristPlaceModel touristPlaceModel)
+    {
+        nameView.setText(touristPlaceModel.getTitle());
+        Picasso.with(imageView.getContext().getApplicationContext()).load(touristPlaceModel.getImageURL()).into(imageView);
+        apertureTimeView.setText(touristPlaceModel.getApertureTime());
+        priceView.setText(touristPlaceModel.getPrice());
+        addressView.setText(touristPlaceModel.getPlace());
+        ratingView.setRating(touristPlaceModel.getRating());
+        descriptionView.setText(touristPlaceModel.getDescription());
+        if(touristPlaceModel.getFavorite())
+            favoriteView.setImageResource(R.drawable.ic_star_white);
+        else
+            favoriteView.setImageResource(R.drawable.ic_star_border);
     }
 
     @Override
@@ -142,8 +186,36 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         priceView.setOnFocusChangeListener(this);
         descriptionView.setOnFocusChangeListener(this);
 
-        //Show image
+        TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (checkAllFields()) {
+                    if (s.length() > 0) showAddButton(true);
+                    else showAddButton(false);
+                }
+                else showAddButton(false);
+            }
+        };
+
+        //TextWatcher
+        imageURLView.addTextChangedListener(watcher);
+        nameView.addTextChangedListener(watcher);
+        apertureTimeView.addTextChangedListener(watcher);
+        priceView.addTextChangedListener(watcher);
+        addressView.addTextChangedListener(watcher);
+        descriptionView.addTextChangedListener(watcher);
+
+        //Show image
         imageURLView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -185,6 +257,9 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
                 changeFavoriteState();
             }
         });
+
+        initData(touristPlaceModel);
+
 
     }
 
