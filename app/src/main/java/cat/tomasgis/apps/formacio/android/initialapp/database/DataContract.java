@@ -93,7 +93,7 @@ public class DataContract {
         }
 
         /** Read {@link #ID} from {@link TouristPlace}. */
-        public static String getCityId(Uri uri) {
+        public static String getPlaceId(Uri uri) {
             return uri.getPathSegments().get(1);
         }
 
@@ -126,6 +126,7 @@ public class DataContract {
             LatLng location = new LatLng(cursor.getDouble(cursor.getColumnIndexOrThrow(TouristPlace.LOCATION_LAT)),
                                          cursor.getDouble(cursor.getColumnIndexOrThrow(TouristPlace.LOCATION_LON)));
 
+
             return new TouristPlaceModel(
                     cursor.getString(cursor.getColumnIndexOrThrow(TouristPlace.ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(TouristPlace.TITLE)),
@@ -136,7 +137,7 @@ public class DataContract {
                     location,
                     cursor.getString(cursor.getColumnIndexOrThrow(TouristPlace.IMAGE_URL)),
                     cursor.getFloat(cursor.getColumnIndexOrThrow(TouristPlace.RATING)),
-                    cursor.getInt(cursor.getColumnIndexOrThrow(TouristPlace.LOCATION_LAT))>0
+                    cursor.getInt(cursor.getColumnIndexOrThrow(TouristPlace.FAVORITE))>0
             );
         }
     }

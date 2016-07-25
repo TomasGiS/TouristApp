@@ -131,17 +131,19 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
 
     private void initData(TouristPlaceModel touristPlaceModel)
     {
-        nameView.setText(touristPlaceModel.getTitle());
-        Picasso.with(imageView.getContext().getApplicationContext()).load(touristPlaceModel.getImageURL()).into(imageView);
-        apertureTimeView.setText(touristPlaceModel.getApertureTime());
-        priceView.setText(touristPlaceModel.getPrice());
-        addressView.setText(touristPlaceModel.getPlace());
-        ratingView.setRating(touristPlaceModel.getRating());
-        descriptionView.setText(touristPlaceModel.getDescription());
-        if(touristPlaceModel.getFavorite())
-            favoriteView.setImageResource(R.drawable.ic_star_white);
-        else
-            favoriteView.setImageResource(R.drawable.ic_star_border);
+        if (touristPlaceModel != null) {
+            nameView.setText(touristPlaceModel.getTitle());
+            Picasso.with(imageView.getContext().getApplicationContext()).load(touristPlaceModel.getImageURL()).into(imageView);
+            apertureTimeView.setText(touristPlaceModel.getApertureTime());
+            priceView.setText(touristPlaceModel.getPrice());
+            addressView.setText(touristPlaceModel.getPlace());
+            ratingView.setRating(touristPlaceModel.getRating());
+            descriptionView.setText(touristPlaceModel.getDescription());
+            if (touristPlaceModel.getFavorite())
+                favoriteView.setImageResource(R.drawable.ic_star_white);
+            else
+                favoriteView.setImageResource(R.drawable.ic_star_border);
+        }
     }
 
     @Override

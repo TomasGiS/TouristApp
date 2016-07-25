@@ -237,7 +237,7 @@ public class TouristPlaceDBProvider implements  ITouristDataAccess {
     }
 
     /**
-     * Warning. The method can run a lot of time if the number of {@Link TouristPlaceModel} os huge.
+     * Warning. The method can run a lot of time if the number of {@link TouristPlaceModel} can be huge.
      * @return
      */
     @Deprecated

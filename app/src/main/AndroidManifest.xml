@@ -36,7 +36,8 @@
 
         <provider
             android:name=".provider.TouristContentProvider"
-            android:authorities="cat.tomasgis.android.tourist.contentprovider"></provider>
+            android:authorities="cat.tomasgis.android.tourist.contentprovider"
+            android:exported="false"></provider>
 
         <activity
             android:name=".TouristPlaceDetailActivity"
