@@ -9,10 +9,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'TomasGiS'
-            keyPassword '***REMOVED***'
-            storeFile file('/home2/docencia/Impulsa/credencials/certificate_android.jks')
-            storePassword '***REMOVED***'
+            keyAlias ''
+            keyPassword ''
+            storeFile file('')
+            storePassword ''
         }
     }
     compileSdkVersion 23
