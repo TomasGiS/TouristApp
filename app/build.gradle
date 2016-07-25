@@ -66,6 +66,8 @@ dependencies {
 
     testCompile 'org.assertj:assertj-core:1.7.1'
 
+    compile 'com.google.code.gson:gson:2.7'
+
 
 
 }
