@@ -159,6 +159,7 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
         getMenuInflater().inflate(R.menu.detail, menu);
         return true;
     }
