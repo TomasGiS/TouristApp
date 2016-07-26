@@ -19,7 +19,7 @@ public class DataContract {
     public static final String CONTENT_AUTHORITY = TouristContentProvider.AUTHORITY;
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-
+    public static final Uri BASE_SERVER_URI = Uri.parse("http://" + CONTENT_AUTHORITY);
 
     interface TouristPlaceFields
     {
@@ -54,7 +54,11 @@ public class DataContract {
                 TouristPlace.RATING,
                 TouristPlace.FAVORITE
         };
+        //Server
+        public static final Uri SERVER_URI = BASE_SERVER_URI.buildUpon()
+                .appendPath(TouristContentProvider.PLACES_BASE_PATH).build();
 
+        //Content provider
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
                 .appendPath(TouristContentProvider.PLACES_BASE_PATH).build();
 
@@ -85,6 +89,11 @@ public class DataContract {
         /** Build {@link Uri} for all Places */
         public static Uri buildPlaceUri() {
             return CONTENT_URI;
+        }
+
+        /** Build {@link Uri} for all Places */
+        public static Uri buildPlaceServerUri() {
+            return SERVER_URI;
         }
 
         /** Build {@link Uri} for all Favorite Places */

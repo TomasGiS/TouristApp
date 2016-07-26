@@ -72,6 +72,7 @@
         <activity-alias
             android:name="cat.tomasgis.apps.formacio.android.initialapp.TouristicPlaceEditActivity"
             android:targetActivity=".TouristicPlaceInsertActivity"
+            android:label="@string/title_activity_touristic_place_edit"
             android:parentActivityName=".TouristPlaceDetailActivity"/>
     </application>
 

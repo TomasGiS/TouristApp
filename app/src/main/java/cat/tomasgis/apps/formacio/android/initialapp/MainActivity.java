@@ -1,8 +1,10 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -21,8 +27,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONObject;
+
 import java.util.Iterator;
 
+import cat.tomasgis.apps.formacio.android.initialapp.communication.RequestManager;
+import cat.tomasgis.apps.formacio.android.initialapp.database.DataContract;
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProviderFactory;
@@ -30,8 +40,11 @@ import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProviderFactor
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
-    ITouristDataAccess instance = null;
+    private final String TAG = MainActivity.class.getSimpleName();
+
+    //ITouristDataAccess instance = null;
     //DataProvider instance = DataProvider.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Connect to Database provider
-        instance = DataProviderFactory.getDataSource(MainActivity.this.getApplicationContext(), DataProviderFactory.TouristicDataSourceType.DabaseData);
+        //instance = DataProviderFactory.getDataSource(MainActivity.this.getApplicationContext(), DataProviderFactory.TouristicDataSourceType.Database);
 
     }
 
@@ -106,10 +119,32 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
+            updateFromServer();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateFromServer() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, DataContract.TouristPlace.buildPlaceServerUri().toString(), null, new Response.Listener<JSONObject>() {
+
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e(TAG,"Refresh request ok");
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        Log.e(TAG,"Refresh request Error");
+
+                    }
+                });
+        RequestManager.getInstance(this.getApplicationContext()).addToRequestQueue(jsObjRequest);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -144,19 +179,27 @@ public class MainActivity extends AppCompatActivity
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(41.119470, 1.245471), 16));
 
-        Iterator<TouristPlaceModel> iterator= instance.iterator();
+        //Iterator<TouristPlaceModel> iterator= instance.iterator();
+        //Get ContentProvider Data
 
-        for (Iterator<TouristPlaceModel> iter = iterator; iter.hasNext(); ) {
+        Cursor cursor = null;
+        cursor = getContentResolver().query(DataContract.TouristPlace.buildPlaceUri(),
+                DataContract.TouristPlace.ALL_FIELDS,
+                null,null,
+                DataContract.TouristPlace.DEFAULT_SORT);
 
-            TouristPlaceModel place = iter.next();
-
+        cursor.moveToFirst();
+        TouristPlaceModel tpm;
+        while(!cursor.isAfterLast())
+        {
+            tpm = DataContract.TouristPlace.cursorToTouristPlace(cursor);
             map.addMarker(new MarkerOptions()
                     .anchor(0.0f, 1.0f)
-                    .position(place.getLocation())
-                    .title(place.getTitle()));
+                    .position(tpm.getLocation())
+                    .title(tpm.getTitle()));
+            cursor.moveToNext();
         }
-
-
+        cursor.close();
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(new LatLng(41.113650, 1.240783))

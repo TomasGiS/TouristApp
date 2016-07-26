@@ -13,6 +13,8 @@
 
     <!-- Header -->
     <string name="title_activity_touristic_place_insert">Afegir</string>
+    <string name="title_activity_touristic_place_edit">Edició</string>
+
     <string name="title_activity_touristic_place_favorite">Favorits</string>
     <string name="place_name">Nom lloc</string>
     <string name="place_image_url">URL Imatge</string>

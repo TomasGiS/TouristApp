@@ -1,8 +1,11 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -72,19 +75,39 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         ab.setDisplayHomeAsUpEnabled(true);
 
 
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String msg = getString(R.string.place_not_added);
+                int returnCode = Activity.RESULT_CANCELED;
+                String timeStr = "";
+                Intent intent = new Intent();
+
+
+                //Check previous data ==> update
+                SharedPreferences sharedPreferences = getSharedPreferences(DataProvider.SERIALIZABLE_DATA_KEY,MODE_PRIVATE);
+                String json = sharedPreferences.getString(DataProvider.SERIALIZABLE_DATA_KEY, "");
+
+
+                if (!json.isEmpty()) {
+                    timeStr = touristPlaceModel.getId();
+                }
+                else
+                {
+                    Calendar calendar = Calendar.getInstance(Locale.getDefault());
+                    long time = calendar.getTime().getTime();
+                    timeStr = String.valueOf(time);
+                }
 
                 if (location!= null) {
 
-                    Calendar calendar = Calendar.getInstance(Locale.getDefault());
-                    long time = calendar.getTime().getTime();
+
 
                     touristPlaceModel = new TouristPlaceModel(
-                            String.valueOf(time),
+                            timeStr,
                             nameView.getText().toString(),
                             descriptionView.getText().toString(),
                             apertureTimeView.getText().toString(),
@@ -99,19 +122,46 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
                     //Insert using database SQLOpenHelper
                     //instance.addTouristPlace(touristPlaceModel);
 
-                    //TODO: First check update
-                    //Insert using contentprovider
-                    getContentResolver().insert(DataContract.TouristPlace.buildPlaceUri(),DataContract.TouristPlace.touristPlaceToContentValues(touristPlaceModel));
+                    String idSelection = DataContract.TouristPlace.ID + "=?";
+                    String idSelectionArgs[] = {touristPlaceModel.getId()};
+
+                    int result = getContentResolver().update(DataContract.TouristPlace.buildPlaceUri(),
+                            DataContract.TouristPlace.touristPlaceToContentValues(touristPlaceModel),
+                            idSelection,idSelectionArgs);
+                    if (result<=0)
+                    {
+
+                        //Insert using contentprovider
+                        Uri uri = getContentResolver().insert(DataContract.TouristPlace.buildPlaceUri(),DataContract.TouristPlace.touristPlaceToContentValues(touristPlaceModel));
+                        if (uri.toString().isEmpty())
+                        {
+                            returnCode = Activity.RESULT_CANCELED;
+                        }
+                        else
+                        {
+                            returnCode = Activity.RESULT_OK;
+                            intent.putExtra(DataContract.TouristPlace.ID,touristPlaceModel.getId());
+                        }
+
+
+                    } else {
+                        returnCode = Activity.RESULT_OK;
+                        intent.putExtra(DataContract.TouristPlace.ID,touristPlaceModel.getId());
+
+                    }
                 }
                 Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
                         .show();
+
+                setResult(returnCode,intent);
+
                 finish();
 
             }
         });
 
         //Data provider connect
-        //instance = DataProviderFactory.getDataSource(this, DataProviderFactory.TouristicDataSourceType.DabaseData);
+        //instance = DataProviderFactory.getDataSource(this, DataProviderFactory.TouristicDataSourceType.Database);
 
         //Load data for edit
         SharedPreferences sharedPreferences = getSharedPreferences(DataProvider.SERIALIZABLE_DATA_KEY,MODE_PRIVATE);

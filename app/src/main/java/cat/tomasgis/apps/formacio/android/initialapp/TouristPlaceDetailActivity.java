@@ -1,5 +1,6 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
@@ -182,7 +183,7 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
             Intent intent = new Intent();
             intent.setClassName(this, "cat.tomasgis.apps.formacio.android.initialapp.TouristicPlaceEditActivity");
 
-            this.startActivity(intent);
+            this.startActivityForResult(intent,3456);
             return true;
         } else if (id == R.id.action_delete) {
 
@@ -190,5 +191,14 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK)
+        {
+            //TODO: Refresh view ==> ContentProvider + refresh views
+        }
     }
 }

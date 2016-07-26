@@ -29,7 +29,7 @@ public class TouristPlacesListActivity extends AppCompatActivity implements Adap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourist_places_list);
 
-        //dataProvider = DataProviderFactory.getDataSource(this,DataProviderFactory.TouristicDataSourceType.DabaseData);
+        //dataProvider = DataProviderFactory.getDataSource(this,DataProviderFactory.TouristicDataSourceType.Database);
     }
 
     @Override
