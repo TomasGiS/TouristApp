@@ -7,7 +7,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- Menu -->
-    <string name="action_settings">Configuració</string>
+    <string name="action_refresh">Actualitza</string>
     <string name="action_edit">Edició</string>
     <string name="action_delete">Esborrar</string>
 

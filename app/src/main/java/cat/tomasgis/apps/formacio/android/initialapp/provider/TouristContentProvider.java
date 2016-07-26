@@ -30,7 +30,7 @@ public class TouristContentProvider extends ContentProvider{
 
     private static final int FAVORITES = 105;
 
-    public static final String AUTHORITY = "cat.tomasgis.android.tourist.contentprovider";
+    public static final String AUTHORITY = "contentprovider.tourist.android.tomasgis.cat";//"cat.tomasgis.android.tourist.contentprovider";
 
     public static final String PLACES_BASE_PATH = "places";
     public static final String FAVORITES_BASE_PATH = "favorites";
