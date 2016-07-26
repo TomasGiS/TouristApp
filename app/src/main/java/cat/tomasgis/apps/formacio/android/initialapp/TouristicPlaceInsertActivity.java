@@ -122,10 +122,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         {
             Gson gson = new Gson();
             touristPlaceModel = gson.fromJson(json, TouristPlaceModel.class);
-            //Clear data after use it
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(DataProvider.SERIALIZABLE_DATA_KEY,"");
-            editor.apply();
+
         }
     }
 
@@ -134,6 +131,7 @@ public class TouristicPlaceInsertActivity extends AppCompatActivity implements V
         if (touristPlaceModel != null) {
             nameView.setText(touristPlaceModel.getTitle());
             Picasso.with(imageView.getContext().getApplicationContext()).load(touristPlaceModel.getImageURL()).into(imageView);
+            imageURLView.setText(touristPlaceModel.getImageURL());
             apertureTimeView.setText(touristPlaceModel.getApertureTime());
             priceView.setText(touristPlaceModel.getPrice());
             addressView.setText(touristPlaceModel.getPlace());
