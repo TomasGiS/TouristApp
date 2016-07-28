@@ -122,9 +122,9 @@ public class TouristPlaceDataSourceTest {
     @Test
     public void testGetNumberOfPlaces() throws Exception {
         this.testClearData();
-        this.testCreate();
         int num = this.instance.getNumberOfPlaces();
-        assertFalse(TAG+"No enough elements at list",num!=NUM_ELEMENTS);
+        assertFalse(TAG+"No enough elements at list",num==NUM_ELEMENTS);
+        this.testCreate();
     }
 
     @Test
