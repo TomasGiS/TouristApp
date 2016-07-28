@@ -37,7 +37,7 @@
         <provider
             android:name=".provider.TouristContentProvider"
             android:authorities="contentprovider.tourist.android.tomasgis.cat"
-            android:exported="false"></provider>
+            android:exported="false" />
 
         <activity
             android:name=".TouristPlaceDetailActivity"
@@ -45,8 +45,8 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".TouristPlacesListActivity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -62,18 +62,21 @@
             android:label="@string/title_activity_touristic_place_insert"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".TouristFavoriteListActivity"
+        <activity
+            android:name=".TouristFavoriteListActivity"
             android:label="@string/title_activity_touristic_place_favorite"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
 
         <activity-alias
-            android:name="cat.tomasgis.apps.formacio.android.initialapp.TouristicPlaceEditActivity"
-            android:targetActivity=".TouristicPlaceInsertActivity"
+            android:name=".TouristicPlaceEditActivity"
             android:label="@string/title_activity_touristic_place_edit"
-            android:parentActivityName=".TouristPlaceDetailActivity"/>
+            android:parentActivityName=".TouristPlaceDetailActivity"
+            android:targetActivity=".TouristicPlaceInsertActivity" />
+
+        <service
+            android:name=".services.FetchPlacesIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

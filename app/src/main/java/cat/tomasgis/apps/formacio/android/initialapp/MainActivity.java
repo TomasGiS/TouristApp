@@ -1,7 +1,9 @@
 package cat.tomasgis.apps.formacio.android.initialapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -26,7 +29,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -36,11 +42,14 @@ import cat.tomasgis.apps.formacio.android.initialapp.database.DataContract;
 import cat.tomasgis.apps.formacio.android.initialapp.interfaces.ITouristDataAccess;
 import cat.tomasgis.apps.formacio.android.initialapp.model.TouristPlaceModel;
 import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProviderFactory;
+import cat.tomasgis.apps.formacio.android.initialapp.services.FetchPlacesIntentService;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback{
 
     private final String TAG = MainActivity.class.getSimpleName();
+    private static Context mContext = null;
+
 
     //ITouristDataAccess instance = null;
     //DataProvider instance = DataProvider.getInstance();
@@ -49,6 +58,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mContext = this.getApplicationContext();
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -119,33 +131,15 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
-            updateFromServer();
+            //updateFromServer();
+            FetchPlacesIntentService.startActionFetchPlaces(this,DataContract.TouristPlace.buildPlaceServerUri().toString());
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateFromServer() {
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, DataContract.TouristPlace.buildPlaceServerUri().toString(), null, new Response.Listener<JSONObject>() {
 
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.e(TAG,"Refresh request ok");
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-                        Log.e(TAG,"Refresh request Error");
-
-                    }
-                });
-        RequestManager.getInstance(this.getApplicationContext()).addToRequestQueue(jsObjRequest);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -212,5 +206,47 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+    AsyncTask<JSONObject, Float,Integer> asyncTask = new AsyncTask<JSONObject, Float, Integer>() {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Integer doInBackground(JSONObject... params) {
+
+            if (params.length==1)
+            {
+                JSONObject response = params[0];
+                Gson gson = new Gson();
+                try{
+                    JSONArray array = response.getJSONArray("locations");
+                    JSONObject jsonObject;
+                    for (int index=0;index<array.length();index++)
+                    {
+                        jsonObject = array.getJSONObject(index);
+                        TouristPlaceModel touristPlaceModel = gson.fromJson(jsonObject.toString(),TouristPlaceModel.class);
+                        Log.e(TAG,"Response? "+ touristPlaceModel.getTitle());
+                    }
+                }catch (JSONException e)
+                {e.printStackTrace();}
+            }
+
+            return 100;
+        }
+
+        @Override
+        protected void onProgressUpdate(Float... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+
+            Toast.makeText(mContext,"Actualització", Toast.LENGTH_SHORT).show();
+        }
+    };
 
 }

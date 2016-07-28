@@ -30,6 +30,7 @@ import cat.tomasgis.apps.formacio.android.initialapp.provider.DataProvider;
 public class TouristPlaceDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = TouristPlaceDetailActivity.class.getSimpleName();
+    private final int REQUEST_CODE = 3367;
     //String dataName;
     TouristPlaceModel touristPlaceModel;
     @Override
@@ -183,7 +184,7 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
             Intent intent = new Intent();
             intent.setClassName(this, "cat.tomasgis.apps.formacio.android.initialapp.TouristicPlaceEditActivity");
 
-            this.startActivityForResult(intent,3456);
+            this.startActivityForResult(intent,REQUEST_CODE);
             return true;
         } else if (id == R.id.action_delete) {
 
@@ -196,9 +197,10 @@ public class TouristPlaceDetailActivity extends AppCompatActivity implements Vie
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK)
-        {
-            //TODO: Refresh view ==> ContentProvider + refresh views
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                //TODO: Refresh view ==> ContentProvider + refresh views
+            }
         }
     }
 }
